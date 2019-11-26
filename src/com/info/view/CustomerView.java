@@ -15,7 +15,7 @@ public class CustomerView {
         System.out.println("Logged in as Customer Successfully.....");
 
 
-        int option = 0;
+        long option = 0;
 
         do {
             System.out.println("Choose an option to perform:\n " +
@@ -28,11 +28,11 @@ public class CustomerView {
             System.out.println("Enter an option:");
 
             try {
-                option = Integer.parseInt(scan.next().trim());
+                option = Long.parseLong(scan.next().trim());
             } catch (Exception e) {
                 System.out.println("Please enter a valid number. ");
             }
-            switch (option) {
+            switch ((int) option) {
                 case 1:
                     customerUtility.showProfile(id);
                     break;
@@ -45,12 +45,11 @@ public class CustomerView {
                     commonUtility.searchBookByName(bookName);
                     break;
                 default:
-                    System.out.println("Please enter valid option. ");
                     break;
             }
         } while (option != 4);
 
-        if(option == 4) System.out.println("Logout Successfully. ");
+        if (option == 4) System.out.println("Logout Successfully. ");
 
     }
 }

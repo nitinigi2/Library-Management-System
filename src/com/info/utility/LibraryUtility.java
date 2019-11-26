@@ -126,7 +126,7 @@ public class LibraryUtility {
             }
         }
         if (isBookAdd) bookEntityList.add(bookEntity);
-        // adding all book objects one by one in bookArraylistLibrary
+        // adding all book objects one by one in bookArrayListLibrary
         addBooks(bookEntity);
 
         System.out.println("BookEntity Added Successfully. ");
@@ -502,9 +502,10 @@ public class LibraryUtility {
 
     public void addBooks(BookEntity bookEntity){
         int quantity = bookEntity.getBookQuantity();
-        for(int i=0;i<quantity;i++){
+        for(int i=1;i<=quantity;i++){
             Book book = new Book();
-            book.setBarcode(generateBarCode(bookEntity.getBookName(),bookEntity.getAuthor(), bookEntity.getPrice(), bookIndex));
+            String barCode = generateBarCode(bookEntity.getBookName(),bookEntity.getAuthor(), bookEntity.getPrice(), bookIndex);
+            book.setBarcode(barCode);
             book.setCanBeIssued(true);
             book.setBookQuantity(quantity);
             book.setAuthor(bookEntity.getAuthor());
@@ -513,11 +514,11 @@ public class LibraryUtility {
             book.setPrice(bookEntity.getPrice());
             bookInLibraryList.add(book);
             bookIndex++;
-            System.out.println("Bar Codes: " + generateBarCode(bookEntity.getBookName(),bookEntity.getAuthor(), bookEntity.getPrice(), bookIndex));
+            System.out.println("Bar Codes: " + barCode);
         }
     }
     public String generateBarCode(String bookName, String authorName, double price, int bookIndex){
-        return bookName.substring(0,bookName.length()/2) + bookName.substring(0, authorName.length()/2) + (int)price + bookIndex*10;
+        return (bookName.substring(0,2) + authorName.substring(0, authorName.length()/2) + (int)price + bookIndex*10).replaceAll("\\s","");
     }
 
     public String generatePassword(String name, String dob){

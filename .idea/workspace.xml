@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fc63108c-0ef2-4f1a-86a9-92cf8f7ac2d3" name="Default Changelist" comment="" />
+    <list default="true" id="fc63108c-0ef2-4f1a-86a9-92cf8f7ac2d3" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/META-INF/Library Management System.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/com/info/utility/LibraryUtility.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/info/utility/LibraryUtility.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/com/info/utility/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/info/utility/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/com/info/view/CustomerView.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/info/view/CustomerView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/com/info/view/LibraryView.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/info/view/LibraryView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/info/utility/LibraryUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/info/utility/LibraryUtility.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/info/view/CustomerView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/info/view/CustomerView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/info/view/LibraryView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/info/view/LibraryView.java" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,8 +26,12 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1TbkhrStZrZigUgtA1MOfDPIxPZ" />
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$USER_HOME$/vis_nrm" />
     <property name="two.files.diff.last.used.folder" value="$USER_HOME$" />
   </component>
@@ -53,5 +68,16 @@
       <updated>1573736305080</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

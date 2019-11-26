@@ -13,9 +13,9 @@ import java.awt.event.KeyListener;
 import java.io.Console;
 import java.util.Scanner;
 
-public class LibraryView implements KeyListener {
+public class LibraryView {
 
-    public void view(String librarianId){
+    public void view(String librarianId) {
         Scanner scan = new Scanner(System.in);
 
         LibraryUtility lib = new LibraryUtility();
@@ -25,7 +25,7 @@ public class LibraryView implements KeyListener {
 
         System.out.println("Choose action to be performed: \n");
 
-        int option = 0;
+        long option = 0;
 
 
         do {
@@ -46,15 +46,15 @@ public class LibraryView implements KeyListener {
 
             System.out.print("Enter an option: ");
             try {
-                option = Integer.parseInt(scan.next());
+                option = Long.parseLong(scan.next());
             } catch (Exception e) {
                 System.out.println("Please enter a valid option.");
             }
-            switch (option) {
+            switch ((int)option) {
                 case 1: {
                     Customer newCustomer = new Customer();
-                    scan.nextLine().trim();
-                    String name="";
+                    scan.nextLine();
+                    String name = "";
                     do {
                         System.out.print("Enter Name: ");
                         name = scan.nextLine().trim();
@@ -62,7 +62,7 @@ public class LibraryView implements KeyListener {
                         if (!lib.isValidName(name)) {
                             System.out.println("Name is not valid. Please enter a valid name. ");
                         }
-                    }while (!lib.isValidName(name));
+                    } while (!lib.isValidName(name));
                     //scan.nextLine();
                     String dob = "";
                     do {
@@ -72,7 +72,7 @@ public class LibraryView implements KeyListener {
                         if (!lib.isValidDob(dob)) {
                             System.out.println("Please enter valid date in dd mm yyyy format. ");
                         }
-                    }while (!lib.isValidDob(dob));
+                    } while (!lib.isValidDob(dob));
 
                     long mobileNumber = 0;
                     do {
@@ -86,7 +86,7 @@ public class LibraryView implements KeyListener {
                         } catch (Exception e) {
                             System.out.println("Please enter valid mobile number.");
                         }
-                    }while (!lib.isValidMobNo(mobileNumber));
+                    } while (!lib.isValidMobNo(mobileNumber));
                     scan.nextLine();
 
                     String address = "";
@@ -97,7 +97,7 @@ public class LibraryView implements KeyListener {
                         if (!lib.isValidAddress(address)) {
                             System.out.println("Please enter valid address. ");
                         }
-                    }while (!lib.isValidAddress(address));
+                    } while (!lib.isValidAddress(address));
                     // generate id
 
                     String id = lib.generateId(name, mobileNumber, dob, address);
@@ -115,7 +115,7 @@ public class LibraryView implements KeyListener {
                     newCustomer.setAddress(address);
                     newCustomer.setPassword(password);
 
-                    System.out.println(newCustomer.getName() + "  " + newCustomer.getId() + " " + newCustomer.getMobNumber() + " " + newCustomer.getAddress());
+                    //  System.out.println(newCustomer.getName() + "  " + newCustomer.getId() + " " + newCustomer.getMobNumber() + " " + newCustomer.getAddress());
 
                     lib.addCustomer(newCustomer);
                 }
@@ -152,7 +152,7 @@ public class LibraryView implements KeyListener {
                     newBookEntity.setAuthor(authorName);
                     newBookEntity.setBookQuantity(bookQuantity);
                     newBookEntity.setPrice(price);
-                   // System.out.println(bookQuantity + " " + newBookEntity.getBookQuantity());
+                    // System.out.println(bookQuantity + " " + newBookEntity.getBookQuantity());
                     //	System.out.println(newBookEntity.getBookName() + " " + newBookEntity.getBookId() + " " + newBookEntity.getAuthor());
                     lib.addEntityBook(newBookEntity);
                     break;
@@ -174,10 +174,10 @@ public class LibraryView implements KeyListener {
                     System.out.print("Enter Vendor Id: ");
                     do {
                         vendorId = scan.nextLine().trim();
-                        if(!lib.isValidVendorId(vendorId)){
+                        if (!lib.isValidVendorId(vendorId)) {
                             System.out.println("This vendor id is not valid. ");
                         }
-                    }while (!lib.isValidVendorId(vendorId));
+                    } while (!lib.isValidVendorId(vendorId));
 
                     System.out.print("Enter BookEntity name ");
                     String bookname = scan.nextLine().trim();
@@ -186,17 +186,17 @@ public class LibraryView implements KeyListener {
                     System.out.print("Enter Quantity: ");
 
                     int quant = 0;
-                    try{
+                    try {
                         quant = Integer.parseInt(scan.next().trim());
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         System.out.println("Please enter valid quantity. ");
                         break;
                     }
 
-                  //  System.out.println(vendorId + " " + bookname + " " + bookauthor + " " + quant);
-                    if(lib.orderBook(vendorId, bookname, bookauthor, quant)){
+                    //  System.out.println(vendorId + " " + bookname + " " + bookauthor + " " + quant);
+                    if (lib.orderBook(vendorId, bookname, bookauthor, quant)) {
                         System.out.println("BookEntity ordered Successfully. ");
-                    }else{
+                    } else {
                         System.out.println("Please enter correct details. ");
                     }
                     break;
@@ -216,10 +216,9 @@ public class LibraryView implements KeyListener {
                         System.out.println("Book doesn't exist");
                         break;
                     }
-                    if(lib.returnBook(cusid, barCode)){
+                    if (lib.returnBook(cusid, barCode)) {
                         System.out.println("BookEntity Returned Successfully. ");
-                    }
-                    else{
+                    } else {
                         System.out.println("Some error Occurred. Cannot returned book.....");
                     }
                     break;
@@ -256,43 +255,23 @@ public class LibraryView implements KeyListener {
                 case 10:
                     lib.showVendorList();
                     break;
-                case 11 :
+                case 11:
                     String vendorid = "";
                     do {
                         System.out.print("Enter vendor id: ");
                         vendorid = scan.next().trim();
-                        if(!lib.isValidVendorId(vendorid)) System.out.println("Not a valid vendor id. ");
-                    }while (!lib.isValidVendorId(vendorid));
+                        if (!lib.isValidVendorId(vendorid)) System.out.println("Not a valid vendor id. ");
+                    } while (!lib.isValidVendorId(vendorid));
 
                     lib.checkStockInVendor(vendorid);
                     break;
 
-                case 12 : break;
-
                 default:
-                    System.out.println("Please enter correct option. ");
                     break;
             }
 
         } while (option != 12);
 
         if (option == 12) System.out.println("Logout Successfully. ");
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            System.out.println("Right key typed");
-        }
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-
     }
 }
