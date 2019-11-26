@@ -2,16 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fc63108c-0ef2-4f1a-86a9-92cf8f7ac2d3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/META-INF/Library Management System.kotlin_module" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/com/info/utility/LibraryUtility.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/info/utility/LibraryUtility.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/com/info/utility/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/info/utility/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/com/info/view/CustomerView.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/info/view/CustomerView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/com/info/view/LibraryView.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/info/view/LibraryView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/info/utility/LibraryUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/info/utility/LibraryUtility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/info/view/CustomerView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/info/view/CustomerView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/info/view/LibraryView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/info/view/LibraryView.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
