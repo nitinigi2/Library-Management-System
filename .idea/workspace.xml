@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fc63108c-0ef2-4f1a-86a9-92cf8f7ac2d3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="f5bed0b9-1e13-4eff-a087-fc1030046a9d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/$PRODUCT_WORKSPACE_FILE$" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/META-INF/Library Management System.kotlin_module" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/com/info/utility/LibraryUtility.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/info/utility/LibraryUtility.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/com/info/utility/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/info/utility/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/com/info/view/CustomerView.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/info/view/CustomerView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/com/info/view/LibraryView.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/info/view/LibraryView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/info/utility/LibraryUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/info/utility/LibraryUtility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/info/view/CustomerView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/info/view/CustomerView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/info/view/LibraryView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/info/view/LibraryView.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -19,21 +17,21 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="1TbkhrStZrZigUgtA1MOfDPIxPZ" />
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="jdkForImporter" value="1.8" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1UHqKUBQ2ItRjIijDQdaAjGTyVL" />
   <component name="PropertiesComponent">
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$/vis_nrm" />
-    <property name="two.files.diff.last.used.folder" value="$USER_HOME$" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -47,25 +45,16 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
-    <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.info.utility.Main" />
-      <module name="Library Management System" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="fc63108c-0ef2-4f1a-86a9-92cf8f7ac2d3" name="Default Changelist" comment="" />
-      <created>1573736305080</created>
+      <changelist id="f5bed0b9-1e13-4eff-a087-fc1030046a9d" name="Default Changelist" comment="" />
+      <created>1575023804834</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1573736305080</updated>
+      <updated>1575023804834</updated>
     </task>
     <servers />
   </component>
