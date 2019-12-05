@@ -8,21 +8,20 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 import com.info.bean.*;
-
-import javax.swing.*;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 public class LibraryUtility {
-    Librarian libray = new Librarian();
-
-
-    Scanner scan = new Scanner(System.in);
 
     private static int totalbooks = 0;
     private static int totalCustomer = 0;
 
     private static ArrayList<Customer> customerList = new ArrayList<Customer>();
-    private static ArrayList<BookEntity> bookEntityList = new ArrayList<BookEntity>();
-    private static Map<String, ArrayList<BookEntity>> searchBookByBookName = new HashMap<String, ArrayList<BookEntity>>();
+    private static ArrayList<BookType> bookTypeList = new ArrayList<BookType>();
+    private static Map<String, ArrayList<BookType>> searchBookByBookName = new HashMap<String, ArrayList<BookType>>();
 
 
     // mapping for which customer took which books
@@ -39,16 +38,16 @@ public class LibraryUtility {
     }
 
 
-    public ArrayList<BookEntity> getBookList() {
-        return bookEntityList;
+    public ArrayList<BookType> getBookList() {
+        return bookTypeList;
     }
 
-    public Map<String, ArrayList<BookEntity>> getSearchBookByBookNameList() {
+    public Map<String, ArrayList<BookType>> getSearchBookByBookNameList() {
         return searchBookByBookName;
     }
 
-    public void setSearchBookByBookNameList(Map<String, ArrayList<BookEntity>> searchBookByBookName){
-        this.searchBookByBookName=searchBookByBookName;
+    public void setSearchBookByBookNameList(Map<String, ArrayList<BookType>> searchBookByBookName) {
+        this.searchBookByBookName = searchBookByBookName;
     }
 
     public ArrayList<Customer> getCustomerList() {
@@ -102,7 +101,10 @@ public class LibraryUtility {
 
      */
 
-    public void addCustomer(Customer customer) {
+    public void addCustomer(Customer customer, SessionFactory sessionFactory) {
+        Session session = sessionFactory.openSession();
+        Transaction tx = null;
+
         boolean isCustomerAdd = true;
         for (Customer c : getCustomerList()) {
             if (c.getId().equals(customer.getId())) {
@@ -111,50 +113,93 @@ public class LibraryUtility {
                 return;
             }
         }
-        if (isCustomerAdd) customerList.add(customer);
+        if (isCustomerAdd) {
+            try {
+                tx = session.beginTransaction();
+                session.save(customer);
+                tx.commit();
+            } catch (HibernateException e) {
+                if (tx != null) tx.rollback();
+                e.printStackTrace();
+            } finally {
+                session.close();
+            }
+
+            customerList.add(customer);
+        }
         totalCustomer++;
         if (customerList.size() == totalCustomer) System.out.println("Customer Added Successfully. \n");
         System.out.println("Id: " + customer.getId() + " password: " + customer.getPassword());
     }
 
-    public void addEntityBook(BookEntity bookEntity) {
+    public void addBookType(BookType bookType, SessionFactory sessionFactory, Vendor vendor) {
+        Session session = sessionFactory.openSession();
+        Transaction tx = null;
         boolean isBookAdd = true;
-        for (BookEntity b : bookEntityList) {
-            if (b.getBookId().equals(bookEntity.getBookId()) && b.getBookName().equals(bookEntity.getBookName()) && b.getAuthor().equals(bookEntity.getAuthor())) {
-                b.setBookQuantity(b.getBookQuantity() + bookEntity.getBookQuantity());
+        for (BookType b : bookTypeList) {
+            if (b.getBookId().equals(bookType.getBookId()) && b.getBookName().equals(bookType.getBookName()) && b.getAuthor().equals(bookType.getAuthor())) {
+                b.setBookQuantity(b.getBookQuantity() + bookType.getBookQuantity());
+                try {
+                    tx = session.beginTransaction();
+                    session.update(b);
+                    tx.commit();
+                } catch (HibernateException e) {
+                    if (tx != null) tx.rollback();
+                    e.printStackTrace();
+                } finally {
+                    session.close();
+                }
                 isBookAdd = false;
             }
         }
-        if (isBookAdd) bookEntityList.add(bookEntity);
+        if (isBookAdd) {
+            bookType.setVendor(vendor);
+            try {
+                tx = session.beginTransaction();
+                session.save(bookType);
+                tx.commit();
+            } catch (HibernateException e) {
+                if (tx != null) tx.rollback();
+                e.printStackTrace();
+            } finally {
+                session.close();
+            }
+
+            bookTypeList.add(bookType);
+        }
         // adding all book objects one by one in bookArrayListLibrary
-        addBooks(bookEntity);
+        addBooks(bookType, sessionFactory);
 
-        System.out.println("BookEntity Added Successfully. ");
 
-        // check if bookEntity name is already in searchbookbyname map or not.
-        // if it is, then add new bookEntity for the same key
+        System.out.println("BookType Added Successfully. ");
+
+        // check if bookType name is already in searchbookbyname map or not.
+        // if it is, then add new bookType for the same key
         // else add new <key, pair>
-        // System.out.println(searchBookByBookName.containsKey(bookEntity.getBookName()));
-        if (!searchBookByBookName.containsKey(bookEntity.getBookName())) {
-            ArrayList<BookEntity> b = new ArrayList<BookEntity>();
-            b.add(bookEntity);
-            searchBookByBookName.put(bookEntity.getBookName(), b);
+        // System.out.println(searchBookByBookName.containsKey(bookType.getBookName()));
+        if (!searchBookByBookName.containsKey(bookType.getBookName())) {
+            ArrayList<BookType> b = new ArrayList<BookType>();
+            b.add(bookType);
+            searchBookByBookName.put(bookType.getBookName(), b);
         }
         /*else {
-            ArrayList<BookEntity> b = searchBookByBookName.get(bookEntity.getBookName());
-            b.add(bookEntity);
+            ArrayList<BookType> b = searchBookByBookName.get(bookType.getBookName());
+            b.add(bookType);
             setSearchBookByBookNameList(searchBookByBookName);
-           // searchBookByBookName.put(bookEntity.getBookName(), b);
+           // searchBookByBookName.put(bookType.getBookName(), b);
         }
         */
     }
 
-    public void issueBook(String cusId, String barCode) {
+    public void issueBook(String cusId, int barCode, SessionFactory sessionFactory) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
         boolean bookFound = false;
 
         //getting objects from given id's
         Book bookObj = getBookObjectByBarCode(barCode);
-        BookEntity bookEntity = getBookObjectById(bookObj.getBookId());
+        BookType bookType = getBookObjectById(bookObj.getBookId());
         Customer customerObj = getCustomerObjectById(cusId);
 
         if (isValidBarCode(barCode) && isValidCustomerId(cusId) && customerObj.getNoBooksCanBeIssued() == 0) {
@@ -164,12 +209,12 @@ public class LibraryUtility {
 
         //check validation
         // if true --> book marked as found else not found.
-        if (isValidBarCode(barCode) && isValidCustomerId(cusId) && bookObj.getBookQuantity() > 0 && bookInLibraryList.contains(bookObj) && bookObj.getCanBeIssued()) {
+        if (isValidBarCode(barCode) && isValidCustomerId(cusId) && bookInLibraryList.contains(bookObj) && bookObj.getCanBeIssued()) {
 
             // bookEntityObj.setBookQuantity(bookEntityObj.getBookQuantity()-1);
             bookFound = true;
         }
-      //  System.out.println(isValidBarCode(barCode) +" " + isValidCustomerId(cusId) +" " + bookObj.getBookQuantity() + " " + bookInLibraryList.contains(bookObj) +" " +  bookObj.getCanBeIssued());
+        //  System.out.println(isValidBarCode(barCode) +" " + isValidCustomerId(cusId) +" " + bookObj.getBookQuantity() + " " + bookInLibraryList.contains(bookObj) +" " +  bookObj.getCanBeIssued());
 
         if (!bookFound) {
             System.out.println("Book not available. So cannot issue this book....");
@@ -182,15 +227,41 @@ public class LibraryUtility {
         }
         //  else customerObj.setNoBooksCanBeIssued(customerObj.getNoBooksCanBeIssued()-1);
 
-        // update object book quantity
+        // update object bookType quantity
 
-        bookObj.setBookQuantity(bookEntityList.get(bookEntityList.indexOf(bookEntity)).getBookQuantity() - 1);
+        bookType.setBookQuantity(bookTypeList.get(bookTypeList.indexOf(bookType)).getBookQuantity() - 1);
 
-        // update book object in ------------> bookEntityList
-        bookEntityList.set(bookEntityList.indexOf(bookEntity), bookObj);
+
+        // update book object in ------------> bookTypeList
+        bookTypeList.set(bookTypeList.indexOf(bookType), bookType);
 
         //update customer's no of book can be issued in ---------------------> customers list
         customerList.get(customerList.indexOf(customerObj)).setNoBooksCanBeIssued(customerList.get(customerList.indexOf(customerObj)).getNoBooksCanBeIssued() - 1);
+
+        // updating database
+        int id = customerObj.getUser_id();
+        Customer customer = session.get(Customer.class, id);
+        BookType bookType1 = session.get(BookType.class, bookType.getBook_entity_id());
+        Book book = session.get(Book.class, bookObj.getId());
+
+        customer.setNoBooksCanBeIssued(customer.getNoBooksCanBeIssued() - 1);
+
+        bookType1.setBookQuantity(bookType1.getBookQuantity() - 1);
+        book.setCanBeIssued(!book.getCanBeIssued());
+        book.setDateOfIssue(new SimpleDateFormat("dd MM yyyy").format(Calendar.getInstance().getTime()));
+        book.setIssuedby(customer);
+
+        //customer.getMapBookDate().put(book, new SimpleDateFormat("dd MM yyyy").format(Calendar.getInstance().getTime()));
+        //customer.setMapBookDate(customer.getMapBookDate());
+
+        customer.getBooksIssuedByCustomer().add(book);
+        customer.setBooksIssuedByCustomer(customer.getBooksIssuedByCustomer());
+
+        session.update(customer);
+        session.update(bookType1);
+        session.update(book);
+        session.getTransaction().commit();
+        session.close();
 
         // check if map contains customer --> check if customer has already issued any book or not
         if (map.containsKey(customerObj)) {
@@ -201,48 +272,46 @@ public class LibraryUtility {
             bookEntityArrayList.add(bookObj);
             map.put(customerObj, bookEntityArrayList);
         }
-        customerObj.getMapBookDate().put(bookObj, new SimpleDateFormat("ddMMyyyy").format(Calendar.getInstance().getTime()));
-        customerObj.setMapBookDate(customerObj.getMapBookDate());
+        customerObj.getBooksIssuedByCustomer().add(book);
+        customerObj.setBooksIssuedByCustomer(customerObj.getBooksIssuedByCustomer());
 
-        System.out.println("BookEntity issued Successfully ..... ");
+        System.out.println("BookType issued Successfully ..... ");
         // setting book can be issued or not and book occupied by which customer.
         bookObj.setCanBeIssued(false);
-        bookObj.setOccupiedBy(customerObj);
+        bookObj.setIssuedby(customerObj);
         bookObj.setDateOfIssue(new SimpleDateFormat("ddMMyyyy").format(Calendar.getInstance().getTime()));
-         // System.out.println(customerObj.getMapBookDate());
+        // System.out.println(customerObj.getMapBookDate());
     }
 
-    public boolean returnBook(String customerId, String barCode) {
+    public boolean returnBook(String customerId, int barCode, SessionFactory sessionFactory) {
+        // opening a session
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+
         Scanner scan = new Scanner(System.in);
         Customer customer = getCustomerObjectById(customerId);
         Book book = getBookObjectByBarCode(barCode);
-        BookEntity bookEntity = getBookObjectById(book.getBookId());
+        BookType bookType = getBookObjectById(book.getBookId());
         if (!map.containsKey(customer)) {
-            System.out.println("You have not issued any bookEntity. ");
+            System.out.println("You have not issued any bookType. ");
             map.remove(customer);
         }
-      //  System.out.println(map);
 
         boolean isFine = false;
 
-        if (isValidCustomerId(customerId) && isValidBarCode(barCode) && map.containsKey(customer)&& isValidBookId(bookEntity.getBookId()) && map.get(customer).contains(book)){
+        if (isValidCustomerId(customerId) && isValidBarCode(barCode) && map.containsKey(customer) && isValidBookId(bookType.getBookId()) && map.get(customer).contains(book)) {
             if (map.get(customer).size() == 1) map.remove(customer);
             else map.get(customer).remove(book);
 
-           /* for(BookEntity b : map.get(customer)){
-                System.out.println(b.getBookId());
-            }
+            double fineOnBook = calculateFineOnBook(customerId, barCode, sessionFactory);
+            System.out.println("Fine on this bookType: " + fineOnBook);
 
-            */
-
-            double fineOnBook = calculateFineOnBook(customerId, barCode);
-            System.out.println("Fine on this bookEntity: " + fineOnBook);
-
-            double totalFine = calculateTotalFine(customerId);
+            double totalFine = calculateTotalFine(customerId, sessionFactory);
             System.out.println("Total fine on this customer : " + totalFine);
 
-            if (customer.getMapBookDate().containsKey(book))
-                customer.getMapBookDate().remove(book);
+            if (customer.getBooksIssuedByCustomer().contains(book))
+                customer.getBooksIssuedByCustomer().remove(book);
 
             if (fineOnBook > 0) {
                 System.out.println("Submit the fine money first : ");
@@ -252,20 +321,45 @@ public class LibraryUtility {
             }
 
             if (!isFine) {
-                // update bookEntity quantity in bookEntityList
-                bookEntityList.get(bookEntityList.indexOf(book)).setBookQuantity(bookEntityList.get(bookEntityList.indexOf(book)).getBookQuantity() + 1);
 
-                // update customer's no of bookEntity can be issued
+                int id = customer.getUser_id();
+                Customer customer1 = session.get(Customer.class, id);
+                BookType bookType1 = session.get(BookType.class, bookType.getBook_entity_id());
+                Book book1 = session.get(Book.class, book.getId());
+
+                customer1.setNoBooksCanBeIssued(customer1.getNoBooksCanBeIssued() + 1);
+
+                bookType1.setBookQuantity(bookType1.getBookQuantity() + 1);
+                book1.setCanBeIssued(!book1.getCanBeIssued());
+                book1.setIssuedby(null);
+                book1.setDateOfIssue(null);
+
+                customer1.getBooksIssuedByCustomer().remove(book);
+                customer1.setBooksIssuedByCustomer(customer1.getBooksIssuedByCustomer());
+
+                session.update(customer1);
+                session.update(bookType1);
+                session.update(book1);
+                session.getTransaction().commit();
+                session.close();
+
+
+
+                /*
+                // update bookType quantity in bookTypeList
+                bookTypeList.get(bookTypeList.indexOf(book)).setBookQuantity(bookTypeList.get(bookTypeList.indexOf(book)).getBookQuantity() + 1);
+
+                // update customer's no of bookType can be issued
                 customerList.get(customerList.indexOf(customer)).setNoBooksCanBeIssued(customerList.get(customerList.indexOf(customer)).getNoBooksCanBeIssued() + 1);
                 // System.out.println("Number of books customer can issue: " + customer.getNoBooksCanBeIssued());
 
                 // setting book can be issued by some other
                 book.setCanBeIssued(true);
+                 */
                 return true;
             }
             return false;
-        }
-        else return false;
+        } else return false;
     }
 
     public int NumberOfBookOccupiedByCustomer(String customerId) {
@@ -284,15 +378,15 @@ public class LibraryUtility {
     }
 
     public boolean isValidBookId(String bookId) {
-        for (BookEntity bookEntity : bookEntityList) {
-            if (bookEntity.getBookId().equals(bookId)) return true;
+        for (BookType bookType : bookTypeList) {
+            if (bookType.getBookId().equals(bookId)) return true;
         }
         return false;
     }
 
-    public BookEntity getBookObjectById(String bookId) {
-        for (BookEntity bookEntity : bookEntityList) {
-            if (bookEntity.getBookId().equals(bookId)) return bookEntity;
+    public BookType getBookObjectById(String bookId) {
+        for (BookType bookType : bookTypeList) {
+            if (bookType.getBookId().equals(bookId)) return bookType;
         }
         return null;
     }
@@ -304,8 +398,20 @@ public class LibraryUtility {
         return null;
     }
 
-    public void showAllCustomerInfo() {
-       // System.out.println(map);
+    public void showAllCustomerInfo(SessionFactory sessionFactory) {
+
+        Session session = sessionFactory.openSession();
+
+        Transaction t = session.beginTransaction();
+
+        Query query = session.createQuery("from Customer");
+        List list = query.list();
+        System.out.println(list);
+        t.commit();
+        session.close();
+
+
+        // System.out.println(map);
         System.out.println("Customers List: ");
         System.out.format("%16s%32s%32s%48s%48s", "Name", "Mobile Number", "Address", "Number of Books can be issued", "List of books Issued");
         System.out.println();
@@ -326,7 +432,7 @@ public class LibraryUtility {
     }
 
     public String generateId(String name, long mobNo, String dob, String address) {
-        return mobNo % 100000 + dob.replaceAll("\\s", "") + String.valueOf(mobNo).substring(0, 5);
+        return name.substring(0,2) + address.substring(0,2) + dob.replaceAll("\\s", "") + String.valueOf(mobNo).substring(0, 2);
     }
 
     public boolean isValidAddress(String address) {
@@ -362,22 +468,25 @@ public class LibraryUtility {
         return dateIsValid;
     }
 
+
     // total fine for per for customer
-    public double calculateFineOnBook(String cusId, String barCode) {
-        Customer customerObj = getCustomerObjectById(cusId);
+    public double calculateFineOnBook(String cusId, int barCode, SessionFactory sessionFactory) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
         Book bookObj = getBookObjectByBarCode(barCode);
         String currentDate = new SimpleDateFormat("dd MM yyyy").format(Calendar.getInstance().getTime());
-        /*Map<BookEntity, String> mapBookDate = customerObj.getMapBookDate();
+        /*Map<BookType, String> mapBookDate = customerObj.getMapBookDate();
         String issueDate = mapBookDate.get(bookObj).substring(0, 2) + " " + mapBookDate.get(bookObj).substring(2, 4) + " " + mapBookDate.get(bookObj).substring(4);
         */
 
-        String issueDate = bookObj.getDateOfIssue().substring(0, 2) + " " +  bookObj.getDateOfIssue().substring(2, 4) + " " + bookObj.getDateOfIssue().substring(4);
+        String issueDate = bookObj.getDateOfIssue().substring(0, 2) + " " + bookObj.getDateOfIssue().substring(2, 4) + " " + bookObj.getDateOfIssue().substring(4);
 
         long days = 0;
         double fine = 0;
 
         SimpleDateFormat myFormat = new SimpleDateFormat("dd MM yyyy");
-
+        /*
         try {
             Date date1 = myFormat.parse(issueDate);
             Date date2 = myFormat.parse(currentDate);
@@ -394,11 +503,39 @@ public class LibraryUtility {
             fine = 15 * ((int) days - 15);
             return fine;
         } else fine=0;
+        */
+
+        // hql query to fetch customer obj from database by id=barcode
+
+        String hql2 = "from Book where barcode = :barcode";
+        Query query2 = session.createQuery(hql2);
+        query2.setParameter("barcode", barCode);
+        Book book = (Book) query2.getSingleResult();
+
+
+        try {
+            Date date1 = myFormat.parse(book.getDateOfIssue());
+            Date date2 = myFormat.parse(currentDate);
+            long diff = date2.getTime() - date1.getTime();
+            days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+            // System.out.println(days);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        if (days > 60) {
+            fine = book.getPrice();
+        }
+        if (days > 15 && days <= 60) {
+            fine = 15 * ((int) days - 15);
+            return fine;
+        } else fine = 0;
+
+
         return fine;
     }
 
     // total fine of customer
-    public double calculateTotalFine(String cusId) {
+    public double calculateTotalFine(String cusId, SessionFactory sessionFactory) {
         Customer customerObj = getCustomerObjectById(cusId);
         String currentDate = new SimpleDateFormat("dd MM yyyy").format(Calendar.getInstance().getTime());
 
@@ -407,9 +544,10 @@ public class LibraryUtility {
         double fine = 0;
         double finePerBook = 0;
         long days = 0;
-        for (Map.Entry<Book, String> entry : customerObj.getMapBookDate().entrySet()) {
+        for (Book book : customerObj.getBooksIssuedByCustomer()) {
             finePerBook = 0;
-            issueDate = entry.getValue().substring(0, 2) + " " + entry.getValue().substring(2, 4) + " " + entry.getValue().substring(4);
+            //issueDate = entry.getValue().substring(0, 2) + " " + entry.getValue().substring(2, 4) + " " + entry.getValue().substring(4);
+            issueDate = book.getDateOfIssue().substring(0, 2) + " " + book.getDateOfIssue().substring(2, 4) + " " + book.getDateOfIssue().substring(4);
             try {
                 Date date1 = myFormat.parse(issueDate);
                 Date date2 = myFormat.parse(currentDate);
@@ -418,8 +556,8 @@ public class LibraryUtility {
             } catch (ParseException e) {
                 System.out.println("Some error occurred....please try again. ");
             }
-            if (days >60) {
-                finePerBook = entry.getKey().getPrice();
+            if (days > 60) {
+                finePerBook = book.getPrice();
             } else if (days > 15 && days <= 60) finePerBook = (days - 15) * 15;
             else finePerBook = 0;
 
@@ -428,29 +566,31 @@ public class LibraryUtility {
         return fine;
     }
 
-    VendorList vendorList = new VendorList();
+    VendorData vendorData = new VendorData();
 
-    public void addVendorData(){
-        vendorList.bookListData();
-        vendorList.vendorListData();
+    public void addVendorData(SessionFactory sessionFactory) {
+        vendorData.generateBookList(sessionFactory);
+        vendorData.generateVendorData(sessionFactory);
     }
-    public boolean orderBook(String vendorId, String bookName, String bookAuthor, int quantity) {
-        for(Vendor vendor : vendorList.getVendorArrayList()){
-            if(vendor.getId().equals(vendorId)){
-                for(BookEntity bookEntity : vendor.getVendorBookEntityList()){
-                    if(bookEntity.getBookName().equals(bookName) && bookEntity.getAuthor().equals(bookAuthor) && quantity > bookEntity.getBookQuantity()){
-                        System.out.println("This quantity of bookEntity is not available. ");
+
+    public boolean orderBook(String vendorId, String bookName, String bookAuthor, int quantity, SessionFactory sessionFactory) {
+        for (Vendor vendor : vendorData.getVendorArrayList()) {
+            if (vendor.getId().equals(vendorId)) {
+                for (BookType bookType : vendor.getVendorBookTypeList()) {
+                    if (bookType.getBookName().equals(bookName) && bookType.getAuthor().equals(bookAuthor) && quantity > bookType.getBookQuantity()) {
+                        System.out.println("This quantity of bookType is not available. ");
                         return false;
                     }
-                    if(bookEntity.getBookName().equals(bookName) && bookEntity.getAuthor().equals(bookAuthor) && bookEntity.getBookQuantity()>=quantity){
-                        BookEntity newBookEntity = new BookEntity(bookEntity);
+                    if (bookType.getBookName().equals(bookName) && bookType.getAuthor().equals(bookAuthor) && bookType.getBookQuantity() >= quantity) {
+                        BookType newBookType = new BookType(bookType);
                         // update data in vendor list
-                        bookEntity.setBookQuantity(bookEntity.getBookQuantity()-quantity);
-
+                        bookType.setBookQuantity(bookType.getBookQuantity() - quantity);
+                        System.out.println(bookType.getSubject());
+                        System.out.println(newBookType.getSubject());
                         // add books in library
-                        newBookEntity.setBookQuantity(quantity);
-                        // System.out.println(bookEntity.getBookQuantity());
-                        addEntityBook(newBookEntity);
+                        newBookType.setBookQuantity(quantity);
+                        // System.out.println(bookType.getBookQuantity());
+                        addBookType(newBookType, sessionFactory, vendor);
                         return true;
                     }
                 }
@@ -459,93 +599,120 @@ public class LibraryUtility {
         return false;
     }
 
-    public void showVendorList(){
+    public void showVendorList(SessionFactory sessionFactory) {
+        Session session = sessionFactory.openSession();
+        Transaction tx = session.beginTransaction();
+
+        Query query = session.createQuery("from Vendor");
+        List list = query.list();
+        System.out.println(list);
+        tx.commit();
+        session.close();
+
         System.out.println("Vendor Details: ");
         System.out.format("%16s%16s", "Name", "Id");
         System.out.println();
-        for(Vendor vendor : vendorList.getVendorArrayList()){
+        for (Vendor vendor : vendorData.getVendorArrayList()) {
             System.out.format("%16s%16s", vendor.getName(), vendor.getId());
             System.out.println();
         }
     }
 
-    public void checkStockInVendor(String vendorId){
+    public void checkStockInVendor(String vendorId) {
         boolean isValidVendor = false;
         Vendor vendorObj = null;
-        for(Vendor vendor : vendorList.getVendorArrayList()){
-            if(vendor.getId().equals(vendorId)){
+        for (Vendor vendor : vendorData.getVendorArrayList()) {
+            if (vendor.getId().equals(vendorId)) {
                 isValidVendor = true;
-                vendorObj=vendor;
+                vendorObj = vendor;
                 break;
             }
         }
 
-        if(isValidVendor){
-            System.out.format("%16s%16s%16s%32s", "Name", "Author", "BookEntity Id", "Number of Books");
+        if (isValidVendor) {
+            System.out.format("%16s%16s%16s%32s", "Name", "Author", "BookType Id", "Number of Books");
             System.out.println();
-            for(BookEntity bookEntity : vendorObj.getVendorBookEntityList()){
-                System.out.format("%16s%16s%16s%32s", bookEntity.getBookName(), bookEntity.getAuthor(), bookEntity.getBookId(), bookEntity.getBookQuantity());
+            for (BookType bookType : vendorObj.getVendorBookTypeList()) {
+                System.out.format("%16s%16s%16s%32s", bookType.getBookName(), bookType.getAuthor(), bookType.getBookId(), bookType.getBookQuantity());
                 System.out.println();
             }
-        }
-        else{
+        } else {
             System.out.println("Please enter correct vendor Id. ");
         }
     }
 
-    static int bookIndex = 0;
-    private static List<Book> bookInLibraryList = new ArrayList<Book>(); // all seperate book objects
 
-    public List<Book> getBookInLibraryList(){
+    private List<Book> bookInLibraryList; // all separate book objects
+
+    public List<Book> getBookInLibraryList() {
         return bookInLibraryList;
     }
 
-    public void addBooks(BookEntity bookEntity){
-        int quantity = bookEntity.getBookQuantity();
-        for(int i=1;i<=quantity;i++){
+    public void addBooks(BookType bookType, SessionFactory sessionFactory) {
+        int bookIndex = 0;
+        bookInLibraryList = new ArrayList<Book>(); // all seperate book objects
+        Session session = sessionFactory.openSession();
+        Transaction tx = null;
+
+
+        int quantity = bookType.getBookQuantity();
+        for (int i = 1; i <= quantity; i++) {
             Book book = new Book();
-            String barCode = generateBarCode(bookEntity.getBookName(),bookEntity.getAuthor(), bookEntity.getPrice(), bookIndex);
+            int barCode = generateBarCode(bookType.getBookName(), bookType.getAuthor(), bookType.getPrice(), bookIndex);
             book.setBarcode(barCode);
             book.setCanBeIssued(true);
-            book.setBookQuantity(quantity);
-            book.setAuthor(bookEntity.getAuthor());
-            book.setBookName(bookEntity.getBookName());
-            book.setBookId(bookEntity.getBookId());
-            book.setPrice(bookEntity.getPrice());
+            book.setAuthor(bookType.getAuthor());
+            book.setBookName(bookType.getBookName());
+            book.setBookId(bookType.getBookId());
+            book.setPrice(bookType.getPrice());
+
+            try {
+                tx = session.beginTransaction();
+                session.save(book);
+                tx.commit();
+            } catch (HibernateException e) {
+                if (tx != null) tx.rollback();
+                e.printStackTrace();
+            }
+
             bookInLibraryList.add(book);
             bookIndex++;
             System.out.println("Bar Codes: " + barCode);
         }
-    }
-    public String generateBarCode(String bookName, String authorName, double price, int bookIndex){
-        return (bookName.substring(0,2) + authorName.substring(0, authorName.length()/2) + (int)price + bookIndex*10).replaceAll("\\s","");
-    }
-
-    public String generatePassword(String name, String dob){
-        return name + dob.replaceAll("\\s","");
+        session.close();
+        //bookType.setBookList(getBookInLibraryList());
     }
 
-    public boolean isValidVendorId(String id){
-        if(id.trim().equals("")) return false;
-        for(Vendor vendor : vendorList.getVendorArrayList()){
-            if(vendor.getId().equals(id)) return true;
+    public int generateBarCode(String bookName, String authorName, double price, int bookIndex) {
+        Random random = new Random();
+        int randNum = random.nextInt(1000);
+        return (randNum + (int) price + bookIndex * 10) * 500;
+    }
+
+    public String generatePassword(String name, String dob) {
+        return name + dob.replaceAll("\\s", "");
+    }
+
+    public boolean isValidVendorId(String id) {
+        if (id.trim().equals("")) return false;
+        for (Vendor vendor : vendorData.getVendorArrayList()) {
+            if (vendor.getId().equals(id)) return true;
         }
         return false;
     }
 
-    public boolean isValidBarCode(String barCode){
-        if(barCode.trim().equals("")) return false;
-        for(Book book : getBookInLibraryList()){
-            if(book.getBarcode().equals(barCode)){
+    public boolean isValidBarCode(int barCode) {
+        for (Book book : getBookInLibraryList()) {
+            if (book.getBarcode() == (barCode)) {
                 return true;
             }
         }
         return false;
     }
 
-    public Book getBookObjectByBarCode(String barCode){
-        for(Book book : getBookInLibraryList()){
-            if(book.getBarcode().equals(barCode)){
+    public Book getBookObjectByBarCode(int barCode) {
+        for (Book book : getBookInLibraryList()) {
+            if (book.getBarcode() == (barCode)) {
                 return book;
             }
         }

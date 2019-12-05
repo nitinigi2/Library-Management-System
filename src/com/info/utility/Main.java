@@ -13,7 +13,7 @@ public class Main {
         CustomerView customerView = new CustomerView();
         Librarian librarian = new Librarian();
         LibraryUtility libraryUtility = new LibraryUtility();
-        librarian.setId("admin");
+        librarian.setId("1234");
         librarian.setPassword("password");
 
         Scanner scan = new Scanner(System.in);

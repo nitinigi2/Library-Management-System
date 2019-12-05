@@ -3,15 +3,15 @@ package com.info.bean;
 import java.util.Date;
 
 public class FineBook {
-    private BookEntity bookEntity;
+    private BookType bookType;
     private Date date;
 
-    public BookEntity getBookEntity() {
-        return bookEntity;
+    public BookType getBookType() {
+        return bookType;
     }
 
-    public void setBookEntity(BookEntity bookEntity) {
-        this.bookEntity = bookEntity;
+    public void setBookType(BookType bookType) {
+        this.bookType = bookType;
     }
 
     public Date getDate() {

@@ -129,7 +129,7 @@ public class LibraryUtility {
         // adding all book objects one by one in bookArrayListLibrary
         addBooks(bookEntity);
 
-        System.out.println("BookEntity Added Successfully. ");
+        System.out.println("BookType Added Successfully. ");
 
         // check if bookEntity name is already in searchbookbyname map or not.
         // if it is, then add new bookEntity for the same key
@@ -141,7 +141,7 @@ public class LibraryUtility {
             searchBookByBookName.put(bookEntity.getBookName(), b);
         }
         /*else {
-            ArrayList<BookEntity> b = searchBookByBookName.get(bookEntity.getBookName());
+            ArrayList<BookType> b = searchBookByBookName.get(bookEntity.getBookName());
             b.add(bookEntity);
             setSearchBookByBookNameList(searchBookByBookName);
            // searchBookByBookName.put(bookEntity.getBookName(), b);
@@ -204,7 +204,7 @@ public class LibraryUtility {
         customerObj.getMapBookDate().put(bookObj, new SimpleDateFormat("ddMMyyyy").format(Calendar.getInstance().getTime()));
         customerObj.setMapBookDate(customerObj.getMapBookDate());
 
-        System.out.println("BookEntity issued Successfully ..... ");
+        System.out.println("BookType issued Successfully ..... ");
         // setting book can be issued or not and book occupied by which customer.
         bookObj.setCanBeIssued(false);
         bookObj.setOccupiedBy(customerObj);
@@ -229,7 +229,7 @@ public class LibraryUtility {
             if (map.get(customer).size() == 1) map.remove(customer);
             else map.get(customer).remove(book);
 
-           /* for(BookEntity b : map.get(customer)){
+           /* for(BookType b : map.get(customer)){
                 System.out.println(b.getBookId());
             }
 
@@ -367,7 +367,7 @@ public class LibraryUtility {
         Customer customerObj = getCustomerObjectById(cusId);
         Book bookObj = getBookObjectByBarCode(barCode);
         String currentDate = new SimpleDateFormat("dd MM yyyy").format(Calendar.getInstance().getTime());
-        /*Map<BookEntity, String> mapBookDate = customerObj.getMapBookDate();
+        /*Map<BookType, String> mapBookDate = customerObj.getMapBookDate();
         String issueDate = mapBookDate.get(bookObj).substring(0, 2) + " " + mapBookDate.get(bookObj).substring(2, 4) + " " + mapBookDate.get(bookObj).substring(4);
         */
 
@@ -481,7 +481,7 @@ public class LibraryUtility {
         }
 
         if(isValidVendor){
-            System.out.format("%16s%16s%16s%32s", "Name", "Author", "BookEntity Id", "Number of Books");
+            System.out.format("%16s%16s%16s%32s", "Name", "Author", "BookType Id", "Number of Books");
             System.out.println();
             for(BookEntity bookEntity : vendorObj.getVendorBookEntityList()){
                 System.out.format("%16s%16s%16s%32s", bookEntity.getBookName(), bookEntity.getAuthor(), bookEntity.getBookId(), bookEntity.getBookQuantity());

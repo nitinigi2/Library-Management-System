@@ -32,11 +32,11 @@ public class CustomerUtility {
         // System.out.println(customer.getMapBookDate());
 
         System.out.println("Total Number of book issued by me : " + map.get(customer).size());
-        System.out.println("BookEntity Details: ");
-        System.out.format("%16s%16s%16s%16s%16s", "Name", "Author", "BookEntity Id", "Date of Issue", "Bar Code");
+        System.out.println("BookType Details: ");
+        System.out.format("%16s%16s%16s%16s%16s", "Name", "Author", "BookType Id", "Date of Issue", "Bar Code");
         System.out.println();
         /*
-        for (BookEntity bookEntity : map.get(customer)) {
+        for (BookType bookEntity : map.get(customer)) {
             // System.out.println(bookEntity);
             String date = customer.getMapBookDate().get(bookEntity);
             date = date.substring(0, 2) + "/" + date.substring(2, 4) + "/" + date.substring(4);

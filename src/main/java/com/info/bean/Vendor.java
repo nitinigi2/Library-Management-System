@@ -1,18 +1,25 @@
 package com.info.bean;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-
+@Entity
 public class Vendor {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int vendor_id;
     private String name;
     private String id;
-    private List<BookEntity> vendorBookEntityList;
 
+    @OneToMany(mappedBy = "vendor")
+    private List<BookType> vendorBookTypeList;
+
+    public Vendor(){}
 
     public Vendor(String name, String id) {
         this.name = name;
         this.id = id;
-        this.vendorBookEntityList = new ArrayList<BookEntity>();
+        this.vendorBookTypeList = new ArrayList<BookType>();
     }
 
     public String getName() {
@@ -31,11 +38,11 @@ public class Vendor {
         this.id = id;
     }
 
-    public List<BookEntity> getVendorBookEntityList() {
-        return vendorBookEntityList;
+    public List<BookType> getVendorBookTypeList() {
+        return vendorBookTypeList;
     }
 
-    public void setVendorBookEntityList(List<BookEntity> vendorBookEntityList) {
-        this.vendorBookEntityList = vendorBookEntityList;
+    public void setVendorBookTypeList(List<BookType> vendorBookTypeList) {
+        this.vendorBookTypeList = vendorBookTypeList;
     }
 }

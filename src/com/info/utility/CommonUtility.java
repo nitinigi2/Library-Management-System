@@ -15,7 +15,7 @@ public class CommonUtility{
         ArrayList<BookEntity> bookEntities = libraryUtility.getBookList();
         // System.out.println(bookmap);
         System.out.println("All available Books in Library : ");
-        System.out.format("%16s%16s%16s%32s", "Name", "Author", "BookEntity Id", "Number of Books");
+        System.out.format("%16s%16s%16s%32s", "Name", "Author", "BookType Id", "Number of Books");
         System.out.println();
         for (BookEntity bookEntity : bookEntities) {
             System.out.format("%16s%16s%16s%32s", bookEntity.getBookName(), bookEntity.getAuthor(), bookEntity.getBookId(), bookEntity.getBookQuantity());
@@ -30,7 +30,7 @@ public class CommonUtility{
             return;
         }
 
-        System.out.format("%16s%16s%16s%32s", "Name", "Author", "BookEntity Id", "Number of Books");
+        System.out.format("%16s%16s%16s%32s", "Name", "Author", "BookType Id", "Number of Books");
         System.out.println();
         if(bookListByName.containsKey(bookName)) {
             for(BookEntity bookEntity : bookListByName.get(bookName)){

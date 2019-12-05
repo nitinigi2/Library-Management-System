@@ -2,6 +2,7 @@ package com.info.view;
 
 import com.info.utility.CommonUtility;
 import com.info.utility.CustomerUtility;
+import org.hibernate.SessionFactory;
 
 import java.util.Scanner;
 
@@ -9,7 +10,7 @@ public class CustomerView {
     CommonUtility commonUtility = new CommonUtility();
     Scanner scan = new Scanner(System.in);
 
-    public void customerView(String id) {
+    public void customerView(String id, SessionFactory sessionFactory) {
         CustomerUtility customerUtility = new CustomerUtility();
         System.out.println("Logged in as Customer Successfully.....");
 
@@ -33,15 +34,15 @@ public class CustomerView {
             }
             switch ((int) option) {
                 case 1:
-                    customerUtility.showProfile(id);
+                    customerUtility.showProfile(id, sessionFactory);
                     break;
                 case 2:
-                    commonUtility.showAllAvailableBooks();
+                    commonUtility.showAllAvailableBooks(sessionFactory);
                     break;
                 case 3:
                     System.out.print("Enter book Name: ");
                     String bookName = scan.nextLine().trim();
-                    commonUtility.searchBookByName(bookName);
+                    commonUtility.searchBookBySUbject(bookName, sessionFactory);
                     break;
                 default:
                     break;

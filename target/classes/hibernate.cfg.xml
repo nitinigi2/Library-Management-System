@@ -1,0 +1,28 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<!DOCTYPE hibernate-configuration SYSTEM
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+
+        <property name = "hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
+
+        <property name = "hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+
+        <!-- Assume demo is the database name -->
+
+        <property name = "hibernate.connection.url">jdbc:mysql://localhost:3306/demo</property>
+
+        <property name = "hibernate.connection.username">root</property>
+
+        <property name = "hibernate.connection.password">root</property>
+
+        <!--to create the table if not exist or update it if exists-->
+        <property name="hibernate.hbm2ddl.auto">update</property>
+
+        <!--to show sql queries-->
+        <property name="show_sql">true</property>
+
+        <!-- List of XML mapping files -->
+        <!--mapping resource = "Customer.hbm.xml"/-->
+    </session-factory>
+</hibernate-configuration>

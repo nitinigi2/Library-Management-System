@@ -6,9 +6,18 @@ import com.info.bean.Customer;
 import com.info.bean.Librarian;
 import com.info.view.CustomerView;
 import com.info.view.LibraryView;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 public class Main {
     public static void main(String args[]) {
+        SessionClass sessionClass = new SessionClass();
+
+        sessionClass.createSessionFactoryObject();
+
+        SessionFactory sessionFactory = sessionClass.getSessionFactoryObject();
+
+
         LibraryView libraryView = new LibraryView();
         CustomerView customerView = new CustomerView();
         Librarian librarian = new Librarian();
@@ -21,7 +30,8 @@ public class Main {
         System.out.println("_______________________Digital Library_______________________________\n");
 
         LibraryUtility lib = new LibraryUtility();
-        lib.addVendorData();   // to load vendor data only 1 time
+        //to be commented once data is loaded
+        lib.addVendorData(sessionFactory);   // to load vendor data only 1 time
 
         int option = 0;
 
@@ -48,7 +58,7 @@ public class Main {
                     System.out.print("Enter password: ");
                     String password = scan.next().trim();
                     if (librarian.getId().equals(id) && librarian.getPassword().equals(password))
-                        libraryView.view(id);
+                        libraryView.view(id, sessionFactory);
                     else System.out.println("wrong id/password");
                     break;
 
@@ -60,7 +70,7 @@ public class Main {
                     String pwd = scan.next().trim();
 
                     if(libraryUtility.isValidCustomerId(cusId) && libraryUtility.getCustomerObjectById(cusId).getPassword().equals(pwd)){
-                        customerView.customerView(cusId);
+                        customerView.customerView(cusId, sessionFactory);
                     }
                     else{
                         System.out.println("Wrong id/password");

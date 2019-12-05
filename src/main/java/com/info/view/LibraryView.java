@@ -1,21 +1,20 @@
 package com.info.view;
 
-import com.info.bean.Book;
-import com.info.bean.BookEntity;
+import com.info.bean.BookType;
 import com.info.bean.Customer;
+import com.info.bean.Vendor;
 import com.info.utility.CommonUtility;
 import com.info.utility.CustomerUtility;
 import com.info.utility.LibraryUtility;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
+import com.info.utility.VendorData;
+import org.hibernate.SessionFactory;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.io.Console;
 import java.util.Scanner;
 
 public class LibraryView {
 
-    public void view(String librarianId) {
+    public void view(String librarianId, SessionFactory sessionFactory) {
+
         Scanner scan = new Scanner(System.in);
 
         LibraryUtility lib = new LibraryUtility();
@@ -31,12 +30,12 @@ public class LibraryView {
         do {
             System.out.println();
             System.out.println(" 1. Add Customer\n "
-                    + "2. Add BookEntity\n "
+                    + "2. Add BookType\n "
                     + "3. Show All available books\n "
-                    + "4. Search BookEntity By Name\n "
-                    + "5. Order BookEntity From Vendor\n "
-                    + "6. Return BookEntity\n "
-                    + "7. Issue BookEntity\n "
+                    + "4. Search BookType By Name\n "
+                    + "5. Order BookType From Vendor\n "
+                    + "6. Return BookType\n "
+                    + "7. Issue BookType\n "
                     + "8. Books issued by customer\n "
                     + "9. Show All Customers List\n "
                     + "10. Show Vendors List\n "
@@ -111,31 +110,39 @@ public class LibraryView {
 
                     newCustomer.setName(name);
                     newCustomer.setId(id);
+                    newCustomer.setDob(dob);
                     newCustomer.setMobNumber(mobileNumber);
                     newCustomer.setAddress(address);
                     newCustomer.setPassword(password);
 
                     //  System.out.println(newCustomer.getName() + "  " + newCustomer.getId() + " " + newCustomer.getMobNumber() + " " + newCustomer.getAddress());
 
-                    lib.addCustomer(newCustomer);
+                    lib.addCustomer(newCustomer, sessionFactory);
                 }
 
                 break;
 
                 case 2:
 
-                    BookEntity newBookEntity = new BookEntity();
+                    BookType newBookType = new BookType();
                     scan.nextLine();
-                    System.out.print("Enter BookEntity Name: ");
+                    System.out.print("Enter BookType Name: ");
                     String bookName = scan.nextLine().trim();
+
+                    System.out.print("Enter Vendor Id: ");
+                    String vendorid = scan.nextLine().trim();
+
+                    System.out.print("Enter Vendor Name: ");
+                    String vendorname = scan.nextLine().trim();
+
                     //scan.nextLine();
                     System.out.print("Enter Author Name: ");
                     String authorName = scan.nextLine().trim();
                     //scan.nextLine();
-                    System.out.print("Enter BookEntity ID: ");
+                    System.out.print("Enter BookType ID: ");
                     String bookId = scan.nextLine().trim();
                     int bookQuantity = 0;
-                    System.out.print("Enter BookEntity Quantity. ");
+                    System.out.print("Enter BookType Quantity. ");
                     try {
                         bookQuantity = Integer.parseInt(scan.next().trim());
                     } catch (Exception e) {
@@ -143,29 +150,36 @@ public class LibraryView {
                         break;
                     }
 
-                    System.out.print("Enter BookEntity Price: ");
+                    System.out.print("Enter BookType Price: ");
                     double price = scan.nextDouble();
 
                     //System.out.println(bookName);
-                    newBookEntity.setBookName(bookName);
-                    newBookEntity.setBookId(bookId);
-                    newBookEntity.setAuthor(authorName);
-                    newBookEntity.setBookQuantity(bookQuantity);
-                    newBookEntity.setPrice(price);
-                    // System.out.println(bookQuantity + " " + newBookEntity.getBookQuantity());
-                    //	System.out.println(newBookEntity.getBookName() + " " + newBookEntity.getBookId() + " " + newBookEntity.getAuthor());
-                    lib.addEntityBook(newBookEntity);
+                    newBookType.setBookName(bookName);
+                    newBookType.setBookId(bookId);
+                    newBookType.setAuthor(authorName);
+                    newBookType.setBookQuantity(bookQuantity);
+                    newBookType.setPrice(price);
+                    Vendor newVendor = new Vendor(vendorname, vendorid);
+
+                    newVendor.getVendorBookTypeList().add(newBookType);
+                    newVendor.setVendorBookTypeList(newVendor.getVendorBookTypeList());
+                    newBookType.setVendor(newVendor);
+                    VendorData vendorData = new VendorData();
+                    vendorData.addVendorWithBook(sessionFactory, newBookType.getVendor(), newBookType);
+                    // System.out.println(bookQuantity + " " + newBookType.getBookQuantity());
+                    //	System.out.println(newBookType.getBookName() + " " + newBookType.getBookId() + " " + newBookType.getAuthor());
+                    lib.addBookType(newBookType, sessionFactory, newVendor);
                     break;
 
                 case 3:
 
-                    commonUtility.showAllAvailableBooks();
+                    commonUtility.showAllAvailableBooks(sessionFactory);
                     break;
 
                 case 4:
-                    System.out.print("Enter BookEntity Name: ");
+                    System.out.print("Enter BookType Name: ");
                     String bookNameToSearch = scan.next().trim();
-                    commonUtility.searchBookByName(bookNameToSearch);
+                    commonUtility.searchBookBySUbject(bookNameToSearch, sessionFactory);
                     break;
 
                 case 5:
@@ -179,9 +193,9 @@ public class LibraryView {
                         }
                     } while (!lib.isValidVendorId(vendorId));
 
-                    System.out.print("Enter BookEntity name ");
+                    System.out.print("Enter BookType name ");
                     String bookname = scan.nextLine().trim();
-                    System.out.print("Enter BookEntity author ");
+                    System.out.print("Enter BookType author ");
                     String bookauthor = scan.nextLine().trim();
                     System.out.print("Enter Quantity: ");
 
@@ -194,8 +208,8 @@ public class LibraryView {
                     }
 
                     //  System.out.println(vendorId + " " + bookname + " " + bookauthor + " " + quant);
-                    if (lib.orderBook(vendorId, bookname, bookauthor, quant)) {
-                        System.out.println("BookEntity ordered Successfully. ");
+                    if (lib.orderBook(vendorId, bookname, bookauthor, quant, sessionFactory)) {
+                        System.out.println("BookType ordered Successfully. ");
                     } else {
                         System.out.println("Please enter correct details. ");
                     }
@@ -210,14 +224,19 @@ public class LibraryView {
                     }
 
                     System.out.print("Enter Book barCode ");
-                    String barCode = scan.next().trim();
+                    int barCode=0;
+                    try{
+                        barCode=Integer.parseInt(scan.next());
+                    }catch (Exception e){
+                        System.out.println("Enter valid bar code");
+                    }
 
                     if (!lib.isValidBarCode(barCode)) {
                         System.out.println("Book doesn't exist");
                         break;
                     }
-                    if (lib.returnBook(cusid, barCode)) {
-                        System.out.println("BookEntity Returned Successfully. ");
+                    if (lib.returnBook(cusid, barCode, sessionFactory)) {
+                        System.out.println("BookType Returned Successfully. ");
                     } else {
                         System.out.println("Some error Occurred. Cannot returned book.....");
                     }
@@ -232,38 +251,43 @@ public class LibraryView {
                     }
 
                     System.out.print("Enter Book bar code: ");
-                    String barcode = scan.next().trim();
+                    int barcode = 0;
+                    try{
+                        barcode = Integer.parseInt(scan.next().trim());
+                    }catch (Exception e){
+                        System.out.println("Invalid bar code");
+                    }
 
                     if (!lib.isValidBarCode(barcode)) {
                         System.out.println("Book doesn't exist");
                         break;
                     }
-                    lib.issueBook(cuid, barcode);
+                    lib.issueBook(cuid, barcode, sessionFactory);
                     break;
 
                 case 8:
                     System.out.print("Enter customer Id: ");
                     String id = scan.next().trim();
-                    customerUtility.booksIssuedByMe(id);
+                    customerUtility.booksIssuedByMe(id, sessionFactory);
 
                     break;
 
                 case 9:
-                    lib.showAllCustomerInfo();
+                    lib.showAllCustomerInfo(sessionFactory);
                     break;
 
                 case 10:
-                    lib.showVendorList();
+                    lib.showVendorList(sessionFactory);
                     break;
                 case 11:
-                    String vendorid = "";
+                    String vendor_id = "";
                     do {
                         System.out.print("Enter vendor id: ");
-                        vendorid = scan.next().trim();
-                        if (!lib.isValidVendorId(vendorid)) System.out.println("Not a valid vendor id. ");
-                    } while (!lib.isValidVendorId(vendorid));
+                        vendor_id = scan.next().trim();
+                        if (!lib.isValidVendorId(vendor_id)) System.out.println("Not a valid vendor id. ");
+                    } while (!lib.isValidVendorId(vendor_id));
 
-                    lib.checkStockInVendor(vendorid);
+                    lib.checkStockInVendor(vendor_id);
                     break;
 
                 default:

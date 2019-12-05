@@ -31,12 +31,12 @@ public class LibraryView {
         do {
             System.out.println();
             System.out.println(" 1. Add Customer\n "
-                    + "2. Add BookEntity\n "
+                    + "2. Add BookType\n "
                     + "3. Show All available books\n "
-                    + "4. Search BookEntity By Name\n "
-                    + "5. Order BookEntity From Vendor\n "
-                    + "6. Return BookEntity\n "
-                    + "7. Issue BookEntity\n "
+                    + "4. Search BookType By Name\n "
+                    + "5. Order BookType From Vendor\n "
+                    + "6. Return BookType\n "
+                    + "7. Issue BookType\n "
                     + "8. Books issued by customer\n "
                     + "9. Show All Customers List\n "
                     + "10. Show Vendors List\n "
@@ -126,16 +126,16 @@ public class LibraryView {
 
                     BookEntity newBookEntity = new BookEntity();
                     scan.nextLine();
-                    System.out.print("Enter BookEntity Name: ");
+                    System.out.print("Enter BookType Name: ");
                     String bookName = scan.nextLine().trim();
                     //scan.nextLine();
                     System.out.print("Enter Author Name: ");
                     String authorName = scan.nextLine().trim();
                     //scan.nextLine();
-                    System.out.print("Enter BookEntity ID: ");
+                    System.out.print("Enter BookType ID: ");
                     String bookId = scan.nextLine().trim();
                     int bookQuantity = 0;
-                    System.out.print("Enter BookEntity Quantity. ");
+                    System.out.print("Enter BookType Quantity. ");
                     try {
                         bookQuantity = Integer.parseInt(scan.next().trim());
                     } catch (Exception e) {
@@ -143,7 +143,7 @@ public class LibraryView {
                         break;
                     }
 
-                    System.out.print("Enter BookEntity Price: ");
+                    System.out.print("Enter BookType Price: ");
                     double price = scan.nextDouble();
 
                     //System.out.println(bookName);
@@ -163,7 +163,7 @@ public class LibraryView {
                     break;
 
                 case 4:
-                    System.out.print("Enter BookEntity Name: ");
+                    System.out.print("Enter BookType Name: ");
                     String bookNameToSearch = scan.next().trim();
                     commonUtility.searchBookByName(bookNameToSearch);
                     break;
@@ -179,9 +179,9 @@ public class LibraryView {
                         }
                     } while (!lib.isValidVendorId(vendorId));
 
-                    System.out.print("Enter BookEntity name ");
+                    System.out.print("Enter BookType name ");
                     String bookname = scan.nextLine().trim();
-                    System.out.print("Enter BookEntity author ");
+                    System.out.print("Enter BookType author ");
                     String bookauthor = scan.nextLine().trim();
                     System.out.print("Enter Quantity: ");
 
@@ -195,7 +195,7 @@ public class LibraryView {
 
                     //  System.out.println(vendorId + " " + bookname + " " + bookauthor + " " + quant);
                     if (lib.orderBook(vendorId, bookname, bookauthor, quant)) {
-                        System.out.println("BookEntity ordered Successfully. ");
+                        System.out.println("BookType ordered Successfully. ");
                     } else {
                         System.out.println("Please enter correct details. ");
                     }
@@ -217,7 +217,7 @@ public class LibraryView {
                         break;
                     }
                     if (lib.returnBook(cusid, barCode)) {
-                        System.out.println("BookEntity Returned Successfully. ");
+                        System.out.println("BookType Returned Successfully. ");
                     } else {
                         System.out.println("Some error Occurred. Cannot returned book.....");
                     }
@@ -232,7 +232,10 @@ public class LibraryView {
                     }
 
                     System.out.print("Enter Book bar code: ");
-                    String barcode = scan.next().trim();
+                    int barcode=0;
+                    try {
+                        barcode = Integer.parseInt(scan.next().trim());
+                    }
 
                     if (!lib.isValidBarCode(barcode)) {
                         System.out.println("Book doesn't exist");
