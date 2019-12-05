@@ -179,7 +179,7 @@ public class LibraryView {
                 case 4:
                     System.out.print("Enter BookType Name: ");
                     String bookNameToSearch = scan.next().trim();
-                    commonUtility.searchBookBySUbject(bookNameToSearch, sessionFactory);
+                    commonUtility.searchBookByName(bookNameToSearch, sessionFactory);
                     break;
 
                 case 5:

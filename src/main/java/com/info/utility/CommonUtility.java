@@ -43,7 +43,7 @@ public class CommonUtility{
 
     }
 
-    public void searchBookBySUbject(String bookName, SessionFactory sessionFactory){
+    public void searchBookByName(String bookName, SessionFactory sessionFactory){
 
         Session session = sessionFactory.openSession();
 

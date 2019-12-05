@@ -42,7 +42,7 @@ public class CustomerView {
                 case 3:
                     System.out.print("Enter book Name: ");
                     String bookName = scan.nextLine().trim();
-                    commonUtility.searchBookBySUbject(bookName, sessionFactory);
+                    commonUtility.searchBookByName(bookName, sessionFactory);
                     break;
                 default:
                     break;
