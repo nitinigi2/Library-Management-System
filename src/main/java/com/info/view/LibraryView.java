@@ -229,6 +229,7 @@ public class LibraryView {
                         barCode=Integer.parseInt(scan.next());
                     }catch (Exception e){
                         System.out.println("Enter valid bar code");
+                        break;
                     }
 
                     if (!lib.isValidBarCode(barCode)) {
@@ -256,6 +257,7 @@ public class LibraryView {
                         barcode = Integer.parseInt(scan.next().trim());
                     }catch (Exception e){
                         System.out.println("Invalid bar code");
+                        break;
                     }
 
                     if (!lib.isValidBarCode(barcode)) {

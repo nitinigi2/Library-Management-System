@@ -6,6 +6,8 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.info.bean.*;
 import org.hibernate.HibernateException;
@@ -57,49 +59,6 @@ public class LibraryUtility {
     public Map<Customer, ArrayList<Book>> getAllBookCustomerMap() {
         return this.map;
     }
-    /*
-    public void changeId() {
-        String id = libray.getId();
-        String password = libray.getPassword();
-
-        System.out.print("Enter current ID: ");
-        String previousID = scan.next();
-        if (!previousID.equals(id)) {
-            System.out.println("Please Enter Correct Id.");
-        } else {
-            System.out.print("\nEnter Password: ");
-
-            if (password.equals(scan.next()) && previousID.equals(id)) {
-                System.out.println("Enter New ID");
-                libray.setId(scan.next());
-                System.out.println("Id Updated Successfully......");
-            } else {
-                System.out.println("Please Enter Correct Password.");
-            }
-        }
-    }
-
-
-    public void changePassword() {
-        String id = libray.getId();
-        String password = libray.getPassword();
-
-        System.out.print("Enter current ID: ");
-        String previousID = scan.next();
-        String pwd = "";
-        System.out.print("\nEnter Password: ");
-
-        if (password.equals(scan.next()) && previousID.equals(id)) {
-            System.out.println("Enter New Password");
-            pwd = scan.next();
-        }
-        if (pwd.equals(password) && !pwd.isEmpty()) {
-            libray.setPassword(pwd);
-            System.out.println("Password Updated Successfully. ");
-        }
-    }
-
-     */
 
     public void addCustomer(Customer customer, SessionFactory sessionFactory) {
         Session session = sessionFactory.openSession();
@@ -294,21 +253,20 @@ public class LibraryUtility {
         Book book = getBookObjectByBarCode(barCode);
         BookType bookType = getBookObjectById(book.getBookId());
         if (!map.containsKey(customer)) {
-            System.out.println("You have not issued any bookType. ");
+            System.out.println("You have not issued this book ");
             map.remove(customer);
         }
 
         boolean isFine = false;
 
         if (isValidCustomerId(customerId) && isValidBarCode(barCode) && map.containsKey(customer) && isValidBookId(bookType.getBookId()) && map.get(customer).contains(book)) {
-            if (map.get(customer).size() == 1) map.remove(customer);
-            else map.get(customer).remove(book);
+
 
             double fineOnBook = calculateFineOnBook(customerId, barCode, sessionFactory);
             System.out.println("Fine on this bookType: " + fineOnBook);
 
-            double totalFine = calculateTotalFine(customerId, sessionFactory);
-            System.out.println("Total fine on this customer : " + totalFine);
+           // double totalFine = calculateTotalFine(customerId, sessionFactory);
+           // System.out.println("Total fine on this customer : " + totalFine);
 
             if (customer.getBooksIssuedByCustomer().contains(book))
                 customer.getBooksIssuedByCustomer().remove(book);
@@ -321,6 +279,8 @@ public class LibraryUtility {
             }
 
             if (!isFine) {
+                if (map.get(customer).size() == 1) map.remove(customer);
+                else map.get(customer).remove(book);
 
                 int id = customer.getUser_id();
                 Customer customer1 = session.get(Customer.class, id);
@@ -447,7 +407,15 @@ public class LibraryUtility {
 
     public boolean isValidName(String name) {
         if (name.trim().equals("")) return false;
-        return true;
+
+        CharSequence inputStr = name;
+        Pattern pattern = Pattern.compile(new String ("^[a-zA-Z\\s]*$"));
+        Matcher matcher = pattern.matcher(inputStr);
+        if(matcher.matches())
+        {
+            return true;
+        }
+        return false;
     }
 
     public boolean isValidDob(String dob) {
@@ -643,7 +611,7 @@ public class LibraryUtility {
     }
 
 
-    private List<Book> bookInLibraryList; // all separate book objects
+    private static List<Book> bookInLibraryList; // all separate book objects
 
     public List<Book> getBookInLibraryList() {
         return bookInLibraryList;
