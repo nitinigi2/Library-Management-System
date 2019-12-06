@@ -2,49 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e221fe93-295b-483a-8726-c1c44f2d157a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/info/utility/VendorData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/$PRODUCT_WORKSPACE_FILE$" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/$PRODUCT_WORKSPACE_FILE$" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/info/utility/CommonUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/info/utility/CommonUtility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/info/utility/CustomerUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/info/utility/CustomerUtility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/info/utility/LibraryUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/info/utility/LibraryUtility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/info/utility/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/info/utility/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/info/view/LibraryView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/info/view/LibraryView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/info/bean/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/info/bean/Book.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/info/bean/BookEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/info/bean/BookType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/info/bean/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/info/bean/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/info/bean/FineBook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/info/bean/FineBook.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/info/bean/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/info/bean/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/info/bean/Vendor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/info/bean/Vendor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/info/utility/CommonUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/info/utility/CommonUtility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/info/utility/CustomerUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/info/utility/CustomerUtility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/info/utility/LibraryUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/info/utility/LibraryUtility.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/info/utility/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/info/utility/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/info/utility/VendorList.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/info/view/CustomerView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/info/view/CustomerView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/info/view/LibraryView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/info/view/LibraryView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/LibraryManagementSystem-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/LibraryManagementSystem-1.0-SNAPSHOT.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/info/bean/Book.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/info/bean/Book.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/info/bean/BookEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/info/bean/Customer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/info/bean/Customer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/info/bean/FineBook.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/info/bean/FineBook.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/info/bean/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/info/bean/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/info/bean/Vendor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/info/bean/Vendor.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/info/utility/CommonUtility.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/info/utility/CommonUtility.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/info/utility/CustomerUtility.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/info/utility/CustomerUtility.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/info/utility/LibraryUtility.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/info/utility/LibraryUtility.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/info/utility/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/info/utility/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/info/utility/VendorList.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/info/view/CustomerView.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/info/view/CustomerView.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/info/view/LibraryView.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/info/view/LibraryView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />

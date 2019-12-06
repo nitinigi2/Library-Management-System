@@ -589,6 +589,7 @@ public class LibraryUtility {
                         System.out.println(newBookType.getSubject());
                         // add books in library
                         newBookType.setBookQuantity(quantity);
+                        newBookType.setSubject(bookType.getSubject());
                         // System.out.println(bookType.getBookQuantity());
                         addBookType(newBookType, sessionFactory, vendor);
                         return true;
