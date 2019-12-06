@@ -26,12 +26,21 @@ public class CommonUtility implements Search {
         Transaction t = session.beginTransaction();
 
         Query query = session.createQuery("from BookType");
-        List list = query.list();
+        List<BookType> list = query.list();
 
-        System.out.println(list);
+        System.out.println("All available Books in Library : ");
+        System.out.format("%16s%16s%16s%32s", "Name", "Author", "BookType Id", "Number of Books");
+        System.out.println();
+        for (BookType bookType : list) {
+            System.out.format("%16s%16s%16s%32s", bookType.getBookName(), bookType.getAuthor(), bookType.getBookId(), bookType.getBookQuantity());
+            System.out.println();
+        }
+
+       // System.out.println(list);
         t.commit();
         session.close();
 
+        /*
         ArrayList<BookType> bookEntities = libraryUtility.getBookList();
         // System.out.println(bookmap);
         System.out.println("All available Books in Library : ");
@@ -41,6 +50,7 @@ public class CommonUtility implements Search {
             System.out.format("%16s%16s%16s%32s", bookType.getBookName(), bookType.getAuthor(), bookType.getBookId(), bookType.getBookQuantity());
             System.out.println();
         }
+         */
 
     }
 
