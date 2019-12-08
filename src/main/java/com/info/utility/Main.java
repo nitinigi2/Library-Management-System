@@ -64,13 +64,13 @@ public class Main {
 
                 case 2 :
                     System.out.print("Enter Id: ");
-                    String cusId = scan.next().trim();
+                    id= scan.next().trim();
 
                     System.out.print("Enter password: ");
-                    String pwd = scan.next().trim();
+                    password = scan.next().trim();
 
-                    if(libraryUtility.isValidCustomerId(cusId) && libraryUtility.getCustomerObjectById(cusId).getPassword().equals(pwd)){
-                        customerView.customerView(cusId, sessionFactory);
+                    if(libraryUtility.isValidCustomerId(id, sessionFactory) && libraryUtility.isValidCustomerPassword(id, password, sessionFactory)){
+                        customerView.customerView(id, sessionFactory);
                     }
                     else{
                         System.out.println("Wrong id/password");

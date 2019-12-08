@@ -13,13 +13,20 @@ public class Book{
     @OneToOne(fetch = FetchType.EAGER)
     private Customer issuedby;
     private boolean canBeIssued;
-    private String bookName;
-    private String author;
-    private String bookId;
-    private double price;
+
+    @ManyToOne
+    private BookType bookType;
 
 
     public Book(){}
+
+    public BookType getBookType() {
+        return bookType;
+    }
+
+    public void setBookType(BookType bookType) {
+        this.bookType = bookType;
+    }
 
     public int getId() {
         return id;
@@ -35,39 +42,6 @@ public class Book{
 
     public boolean isCanBeIssued() {
         return canBeIssued;
-    }
-
-    public String getBookName() {
-        return bookName;
-    }
-
-    public void setBookName(String bookName) {
-        this.bookName = bookName;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public String getBookId() {
-        return bookId;
-    }
-
-    public void setBookId(String bookId) {
-        this.bookId = bookId;
-    }
-
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
     }
 
     public boolean getCanBeIssued() {
@@ -98,18 +72,4 @@ public class Book{
         this.issuedby = issuedby;
     }
 
-    @Override
-    public String toString() {
-        return "Book{" +
-                "id=" + id +
-                ", barcode=" + barcode +
-                ", DateOfIssue='" + DateOfIssue + '\'' +
-                ", issuedby=" + issuedby +
-                ", canBeIssued=" + canBeIssued +
-                ", bookName='" + bookName + '\'' +
-                ", author='" + author + '\'' +
-                ", bookId='" + bookId + '\'' +
-                ", price=" + price +
-                '}';
-    }
 }

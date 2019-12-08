@@ -30,17 +30,16 @@ public class LibraryView {
         do {
             System.out.println();
             System.out.println(" 1. Add Customer\n "
-                    + "2. Add BookType\n "
-                    + "3. Show All available books\n "
-                    + "4. Search BookType By Name\n "
-                    + "5. Order BookType From Vendor\n "
-                    + "6. Return BookType\n "
-                    + "7. Issue BookType\n "
-                    + "8. Books issued by customer\n "
-                    + "9. Show All Customers List\n "
-                    + "10. Show Vendors List\n "
-                    + "11. Check stock of books vendor has\n "
-                    + "12. Exit \n ");
+                    + "2. Show All available books\n "
+                    + "3. Search BookType By Name\n "
+                    + "4. Order BookType From Vendor\n "
+                    + "5. Return BookType\n "
+                    + "6. Issue BookType\n "
+                    + "7. Books issued by customer\n "
+                    + "8. Show All Customers List\n "
+                    + "9. Show Vendors List\n "
+                    + "10. Check stock of books vendor has\n "
+                    + "11. Exit \n ");
 
 
             System.out.print("Enter an option: ");
@@ -101,7 +100,7 @@ public class LibraryView {
 
                     String id = lib.generateId(name, mobileNumber, dob, address);
                     //check if customer id is valid or not.
-                    if (lib.isValidCustomerId(id)) {
+                    if (lib.isValidCustomerId(id, sessionFactory)) {
                         System.out.println("Customer already exist. Cannot add this customer. ");
                         break;
                     }
@@ -123,66 +122,16 @@ public class LibraryView {
                 break;
 
                 case 2:
-
-                    BookType newBookType = new BookType();
-                    scan.nextLine();
-                    System.out.print("Enter BookType Name: ");
-                    String bookName = scan.nextLine().trim();
-
-                    System.out.print("Enter Vendor Id: ");
-                    String vendorid = scan.nextLine().trim();
-
-                    System.out.print("Enter Vendor Name: ");
-                    String vendorname = scan.nextLine().trim();
-
-                    //scan.nextLine();
-                    System.out.print("Enter Author Name: ");
-                    String authorName = scan.nextLine().trim();
-                    //scan.nextLine();
-                    System.out.print("Enter BookType ID: ");
-                    String bookId = scan.nextLine().trim();
-                    int bookQuantity = 0;
-                    System.out.print("Enter BookType Quantity. ");
-                    try {
-                        bookQuantity = Integer.parseInt(scan.next().trim());
-                    } catch (Exception e) {
-                        System.out.println("Please enter valid no of books. ");
-                        break;
-                    }
-
-                    System.out.print("Enter BookType Price: ");
-                    double price = scan.nextDouble();
-
-                    //System.out.println(bookName);
-                    newBookType.setBookName(bookName);
-                    newBookType.setBookId(bookId);
-                    newBookType.setAuthor(authorName);
-                    newBookType.setBookQuantity(bookQuantity);
-                    newBookType.setPrice(price);
-                    Vendor newVendor = new Vendor(vendorname, vendorid);
-
-                    newVendor.getVendorBookTypeList().add(newBookType);
-                    newVendor.setVendorBookTypeList(newVendor.getVendorBookTypeList());
-                    newBookType.setVendor(newVendor);
-                    VendorData vendorData = new VendorData();
-                    vendorData.addVendorWithBook(sessionFactory, newBookType.getVendor(), newBookType);
-                    // System.out.println(bookQuantity + " " + newBookType.getBookQuantity());
-                    //	System.out.println(newBookType.getBookName() + " " + newBookType.getBookId() + " " + newBookType.getAuthor());
-                    lib.addBookType(newBookType, sessionFactory, newVendor);
-                    break;
-
-                case 3:
-
                     commonUtility.showAllAvailableBooks(sessionFactory);
                     break;
 
-                case 4:
-                    System.out.print("Enter BookType Name: ");
+                case 3:
+                    System.out.print("Enter Book Name: ");
                     String bookNameToSearch = scan.next().trim();
                     commonUtility.searchBookByName(bookNameToSearch, sessionFactory);
                     break;
 
-                case 5:
+                case 4:
                     scan.nextLine();
                     String vendorId = "";
                     System.out.print("Enter Vendor Id: ");
@@ -214,11 +163,11 @@ public class LibraryView {
                         System.out.println("Please enter correct details. ");
                     }
                     break;
-                case 6:
+                case 5:
                     System.out.print("Enter Customer Id: ");
                     String cusid = scan.next().trim();
                     //check if customer id is valid or not.
-                    if (!lib.isValidCustomerId(cusid)) {
+                    if (!lib.isValidCustomerId(cusid, sessionFactory)) {
                         System.out.println("Customer id doesn't exist. ");
                         break;
                     }
@@ -232,24 +181,11 @@ public class LibraryView {
                         break;
                     }
 
-                    if (!lib.isValidBarCode(barCode)) {
-                        System.out.println("Book doesn't exist");
-                        break;
-                    }
-                    if (lib.returnBook(cusid, barCode, sessionFactory)) {
-                        System.out.println("BookType Returned Successfully. ");
-                    } else {
-                        System.out.println("Some error Occurred. Cannot returned book.....");
-                    }
+                    lib.returnBook(cusid, barCode, sessionFactory);
                     break;
-                case 7:
+                case 6:
                     System.out.print("Enter Customer Id: ");
                     String cuid = scan.next().trim();
-                    //check if customer id is valid or not.
-                    if (!lib.isValidCustomerId(cuid)) {
-                        System.out.println("Customer id doesn't exist. ");
-                        break;
-                    }
 
                     System.out.print("Enter Book bar code: ");
                     int barcode = 0;
@@ -259,29 +195,24 @@ public class LibraryView {
                         System.out.println("Invalid bar code");
                         break;
                     }
-
-                    if (!lib.isValidBarCode(barcode)) {
-                        System.out.println("Book doesn't exist");
-                        break;
-                    }
                     lib.issueBook(cuid, barcode, sessionFactory);
                     break;
 
-                case 8:
+                case 7:
                     System.out.print("Enter customer Id: ");
                     String id = scan.next().trim();
                     customerUtility.booksIssuedByMe(id, sessionFactory);
 
                     break;
 
-                case 9:
+                case 8:
                     lib.showAllCustomerInfo(sessionFactory);
                     break;
 
-                case 10:
+                case 9:
                     lib.showVendorList(sessionFactory);
                     break;
-                case 11:
+                case 10:
                     String vendor_id = "";
                     do {
                         System.out.print("Enter vendor id: ");
@@ -296,8 +227,8 @@ public class LibraryView {
                     break;
             }
 
-        } while (option != 12);
+        } while (option != 11);
 
-        if (option == 12) System.out.println("Logout Successfully. ");
+        if (option == 11) System.out.println("Logout Successfully. ");
     }
 }

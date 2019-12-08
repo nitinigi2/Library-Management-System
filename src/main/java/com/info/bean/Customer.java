@@ -17,7 +17,6 @@ public class Customer extends User {
     private String Dob;
     private int NoBooksCanBeIssued = 3;
 
-	@Transient
     @OneToMany(mappedBy = "issuedby", cascade = CascadeType.ALL)
     List<Book> booksIssuedByCustomer;
 
