@@ -1,34 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c1b34f6e-c237-4b71-95d4-54a5f85d400b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/info/bean/Librarian.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/info/bean/Librarian.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/info/utility/CustomerUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/info/utility/CustomerUtility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/info/utility/LibraryUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/info/utility/LibraryUtility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/info/utility/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/info/utility/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/info/view/CustomerView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/info/view/CustomerView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/info/view/LibraryView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/info/view/LibraryView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/info/bean/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/info/bean/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/info/bean/Librarian.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/info/bean/Librarian.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/info/bean/Search.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/info/bean/Search.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/info/utility/CommonUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/info/utility/CommonUtility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/info/utility/CustomerUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/info/utility/CustomerUtility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/info/utility/LibraryUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/info/utility/LibraryUtility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/info/utility/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/info/utility/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/info/utility/VendorData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/info/utility/VendorData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/info/view/LibraryView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/info/view/LibraryView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/info/bean/Customer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/info/bean/Customer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/info/bean/FineBook.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/info/bean/Librarian.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/info/bean/Librarian.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/info/utility/CommonUtility.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/info/utility/CommonUtility.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/info/utility/CustomerUtility.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/info/utility/CustomerUtility.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/info/utility/LibraryUtility.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/info/utility/LibraryUtility.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/info/utility/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/info/utility/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/info/utility/VendorData.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/info/utility/VendorData.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/info/view/LibraryView.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/info/view/LibraryView.class" afterDir="false" />
-    </list>
+    <list default="true" id="c1b34f6e-c237-4b71-95d4-54a5f85d400b" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
