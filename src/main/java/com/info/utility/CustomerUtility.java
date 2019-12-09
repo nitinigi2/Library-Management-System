@@ -42,11 +42,11 @@ public class CustomerUtility {
 
         System.out.println("Total Number of book issued by me : " + list.size());
         System.out.println("Book Details: ");
-        System.out.format("%16s%16s%16s%16s%16s", "Name", "Author", "BookType Id", "Date of Issue", "Bar Code");
+        System.out.format("%32s%32s%32s%32s%32s", "Name", "Author", "BookType Id", "Date of Issue", "Bar Code");
         System.out.println();
         for(Book book : list){
             BookType bookType = book.getBookType();
-            System.out.format("%16s%16s%16s%16s%16s", bookType.getBookName(), bookType.getAuthor(), bookType.getBookId(),book.getDateOfIssue(), book.getBarcode());
+            System.out.format("%32s%32s%32s%32s%32s", bookType.getBookName(), bookType.getAuthor(), bookType.getBookId(),book.getDateOfIssue(), book.getBarcode());
             System.out.println();
         }
         //System.out.println(list);

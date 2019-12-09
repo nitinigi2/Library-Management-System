@@ -3,21 +3,41 @@
   <component name="ChangeListManager">
     <list default="true" id="c1b34f6e-c237-4b71-95d4-54a5f85d400b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/info/utility/CommonUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/info/utility/CommonUtility.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/com/info/bean/Book.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/info/bean/Book.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/com/info/bean/BookEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/info/bean/BookEntity.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/com/info/bean/Customer.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/info/bean/Customer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/com/info/bean/FineBook.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/info/bean/FineBook.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/com/info/bean/Librarian.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/info/bean/Librarian.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/com/info/bean/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/info/bean/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/com/info/bean/Vendor.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/info/bean/Vendor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/com/info/utility/CommonUtility.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/info/utility/CommonUtility.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/com/info/utility/CustomerUtility.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/info/utility/CustomerUtility.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/com/info/utility/LibraryUtility.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/info/utility/LibraryUtility.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/com/info/utility/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/info/utility/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/com/info/utility/VendorList.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/info/utility/VendorList.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/com/info/view/CustomerView.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/info/view/CustomerView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/com/info/view/LibraryView.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/info/view/LibraryView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/info/utility/CustomerUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/info/utility/CustomerUtility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/info/utility/LibraryUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/info/utility/LibraryUtility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/info/view/CustomerView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/info/view/CustomerView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/info/view/LibraryView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/info/view/LibraryView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/info/utility/CommonUtility.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/info/utility/CommonUtility.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/info/utility/CustomerUtility.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/info/utility/CustomerUtility.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/info/utility/LibraryUtility.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/info/utility/LibraryUtility.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/info/view/CustomerView.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/info/view/CustomerView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/info/view/LibraryView.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/info/view/LibraryView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/info/utility/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/info/utility/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/LibraryManagementSystem-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/LibraryManagementSystem-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/info/utility/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/info/utility/Main.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn install" />
+    </option>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">

@@ -81,7 +81,10 @@ public class Main {
             }
         } while (option != 3);
 
-        if (option == 3) System.out.println("Exit Successfully. ");
+        if (option == 3) {
+            sessionFactory.close();
+            System.out.println("Exit Successfully. ");
+        }
 
     }
 }
