@@ -3,22 +3,16 @@
   <component name="ChangeListManager">
     <list default="true" id="c1b34f6e-c237-4b71-95d4-54a5f85d400b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/info/bean/Vendor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/info/bean/Vendor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/info/utility/CommonUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/info/utility/CommonUtility.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/info/utility/CustomerUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/info/utility/CustomerUtility.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/info/utility/LibraryUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/info/utility/LibraryUtility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/info/utility/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/info/utility/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/info/utility/ParseVendorData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/info/utility/ParseVendorData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/info/utility/VendorData.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/info/view/CustomerView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/info/view/CustomerView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/info/view/LibraryView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/info/view/LibraryView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/info/bean/Vendor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/info/bean/Vendor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/info/utility/CommonUtility.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/info/utility/CommonUtility.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/info/utility/CustomerUtility.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/info/utility/CustomerUtility.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/info/utility/LibraryUtility.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/info/utility/LibraryUtility.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/info/utility/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/info/utility/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/info/utility/ParseVendorData$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/info/utility/ParseVendorData$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/info/utility/ParseVendorData.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/info/utility/ParseVendorData.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/info/utility/VendorData.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/info/view/CustomerView.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/info/view/CustomerView.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/info/view/LibraryView.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/info/view/LibraryView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/hibernate.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/hibernate.cfg.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendorData.json" beforeDir="false" afterPath="$PROJECT_DIR$/vendorData.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

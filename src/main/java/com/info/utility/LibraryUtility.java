@@ -451,10 +451,10 @@ public class LibraryUtility {
         if(vendor!=null) isValidVendor=true;
 
         if (isValidVendor) {
-            System.out.format("%16s%16s%16s%32s", "Name", "Author", "BookType Id", "Number of Books");
+            System.out.format("%32s%32s%32s", "Name", "Author", "BookType Id");
             System.out.println();
             for (BookType bookType : parseVendorData.getVendorsBook().get(vendorId)) {
-                System.out.format("%16s%16s%16s%32s", bookType.getBookName(), bookType.getAuthor(), bookType.getBookId(), bookType.getBookQuantity());
+                System.out.format("%32s%32s%32s", bookType.getBookName(), bookType.getAuthor(), bookType.getBookId());
                 System.out.println();
             }
         } else {

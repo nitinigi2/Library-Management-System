@@ -36,8 +36,10 @@ public class LibraryView {
                     + "7. Books issued by customer\n "
                     + "8. Show All Customers List\n "
                     + "9. Show Vendors List\n "
-                    + "10. Check stock of books vendor has\n "
-                    + "11. Exit \n ");
+                    + "10. Check types of books vendor has\n "
+                    + "11.Search book by subject name\n "
+                    + "12. Search book by author name\n "
+                    + "13. Exit \n ");
 
 
             System.out.print("Enter an option: ");
@@ -124,8 +126,9 @@ public class LibraryView {
                     break;
 
                 case 3:
+                    scan.nextLine();
                     System.out.print("Enter Book Name: ");
-                    String bookNameToSearch = scan.next().trim();
+                    String bookNameToSearch = scan.nextLine().trim();
                     commonUtility.searchBookByName(bookNameToSearch, sessionFactory);
                     break;
 
@@ -221,12 +224,26 @@ public class LibraryView {
                     lib.checkStockInVendor(vendor_id, sessionFactory);
                     break;
 
+                case 11:
+                    scan.nextLine();
+                    System.out.print("Enter Subject Name: ");
+                    String bookSubjectToSearch = scan.nextLine().trim();
+                    commonUtility.searchBySubject(bookSubjectToSearch, sessionFactory);
+                    break;
+
+                case 12:
+                    scan.nextLine();
+                    System.out.print("Enter Author Name: ");
+                    String authorName = scan.nextLine().trim();
+                    commonUtility.searchByAuthor(authorName, sessionFactory);
+                    break;
+
                 default:
                     break;
             }
 
-        } while (option != 11);
+        } while (option != 13);
 
-        if (option == 11) System.out.println("Logout Successfully. ");
+        if (option == 13) System.out.println("Logout Successfully. ");
     }
 }

@@ -10,7 +10,6 @@ import org.hibernate.query.Query;
 import java.util.List;
 
 public class CommonUtility implements Search {
-    LibraryUtility libraryUtility = new LibraryUtility();
 
     public void showAllAvailableBooks(SessionFactory sessionFactory) {
 
@@ -23,10 +22,10 @@ public class CommonUtility implements Search {
         List<BookType> list = query.list();
 
         System.out.println("All available Books in Library : ");
-        System.out.format("%16s%16s%16s%32s", "Name", "Author", "BookType Id", "Number of Books");
+        System.out.format("%32s%32s%32s%32s", "Name", "Author", "BookType Id", "Number of Books");
         System.out.println();
         for (BookType bookType : list) {
-            System.out.format("%16s%16s%16s%32s", bookType.getBookName(), bookType.getAuthor(), bookType.getBookId(), bookType.getBookQuantity());
+            System.out.format("%32s%32s%32s%32s", bookType.getBookName(), bookType.getAuthor(), bookType.getBookId(), bookType.getBookQuantity());
             System.out.println();
         }
 
@@ -81,11 +80,11 @@ public class CommonUtility implements Search {
             return;
         }
 
-        System.out.format("%16s%16s%16s%32s", "Name", "Author", "BookType Id", "Number of Books");
+        System.out.format("%32s%32s%32s%32s", "Name", "Author", "BookType Id", "Number of Books");
         System.out.println();
 
         for (BookType bookType : list) {
-            System.out.format("%16s%16s%16s%32s", bookType.getBookName(), bookType.getAuthor(), bookType.getBookId(), bookType.getBookQuantity());
+            System.out.format("%32s%32s%32s%32s", bookType.getBookName(), bookType.getAuthor(), bookType.getBookId(), bookType.getBookQuantity());
             System.out.println();
         }
 
@@ -112,11 +111,11 @@ public class CommonUtility implements Search {
             return;
         }
 
-        System.out.format("%16s%16s%16s%32s", "Name", "Author", "BookType Id", "Number of Books");
+        System.out.format("%32s%32s%32s%32s", "Name", "Author", "BookType Id", "Number of Books");
         System.out.println();
 
         for (BookType bookType : list) {
-            System.out.format("%16s%16s%16s%32s", bookType.getBookName(), bookType.getAuthor(), bookType.getBookId(), bookType.getBookQuantity());
+            System.out.format("%32s%32s%32s%32s", bookType.getBookName(), bookType.getAuthor(), bookType.getBookId(), bookType.getBookQuantity());
             System.out.println();
         }
 

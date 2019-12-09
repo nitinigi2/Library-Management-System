@@ -28,7 +28,7 @@ public class CustomerUtility {
         try {
             customer1 = (Customer) query1.getSingleResult();
         }catch (Exception e){
-            System.out.println("Cannot fetch books issued by this customer. Please try again. ");
+
         }
 
         Query query = session.createQuery("from Book where issuedby = :issuedby");

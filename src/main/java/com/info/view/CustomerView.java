@@ -21,7 +21,7 @@ public class CustomerView {
             System.out.println("Choose an option to perform:\n " +
                     "1. Display Profile\n " +
                     "2. Show All available books in Library\n " +
-                    "3. Search for a book by name: \n " +
+                    "3. Search book by book name: \n " +
                     "4. Search book by author Name:\n " +
                     "5. Search book by Subject name:\n " +
                     "6. Exit\n ");
