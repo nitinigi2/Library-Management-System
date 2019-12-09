@@ -1,12 +1,8 @@
 package com.info.bean;
 
-import com.sun.javafx.collections.MappingChange;
-
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Entity
 @Embeddable

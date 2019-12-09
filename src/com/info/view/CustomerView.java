@@ -1,6 +1,5 @@
 package com.info.view;
 
-import com.info.bean.Customer;
 import com.info.utility.CommonUtility;
 import com.info.utility.CustomerUtility;
 

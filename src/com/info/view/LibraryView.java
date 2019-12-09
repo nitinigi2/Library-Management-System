@@ -1,16 +1,11 @@
 package com.info.view;
 
-import com.info.bean.Book;
 import com.info.bean.BookEntity;
 import com.info.bean.Customer;
 import com.info.utility.CommonUtility;
 import com.info.utility.CustomerUtility;
 import com.info.utility.LibraryUtility;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.io.Console;
 import java.util.Scanner;
 
 public class LibraryView {

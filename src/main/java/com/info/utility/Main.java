@@ -1,13 +1,12 @@
 package com.info.utility;
 
-import java.util.Scanner;
-
-import com.info.bean.Customer;
 import com.info.bean.Librarian;
 import com.info.view.CustomerView;
 import com.info.view.LibraryView;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+
+import java.io.IOException;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String args[]) {
@@ -16,6 +15,9 @@ public class Main {
         sessionClass.createSessionFactoryObject();
 
         SessionFactory sessionFactory = sessionClass.getSessionFactoryObject();
+
+        // reading vendors bookData
+        ParseVendorData parseVendorData = new ParseVendorData();
 
 
         LibraryView libraryView = new LibraryView();

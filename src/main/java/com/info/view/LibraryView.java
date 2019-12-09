@@ -1,12 +1,9 @@
 package com.info.view;
 
-import com.info.bean.BookType;
 import com.info.bean.Customer;
-import com.info.bean.Vendor;
 import com.info.utility.CommonUtility;
 import com.info.utility.CustomerUtility;
 import com.info.utility.LibraryUtility;
-import com.info.utility.VendorData;
 import org.hibernate.SessionFactory;
 
 import java.util.Scanner;

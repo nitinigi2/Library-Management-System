@@ -1,13 +1,11 @@
 package com.info.utility;
 
-import com.info.bean.Book;
 import com.info.bean.BookType;
 import com.info.bean.Vendor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class VendorData {
     private static ArrayList<Vendor> vendorArrayList = new ArrayList<Vendor>();

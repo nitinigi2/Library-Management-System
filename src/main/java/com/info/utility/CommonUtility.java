@@ -1,6 +1,5 @@
 package com.info.utility;
 
-import com.info.bean.Book;
 import com.info.bean.BookType;
 import com.info.bean.Search;
 import org.hibernate.Session;
@@ -8,9 +7,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class CommonUtility implements Search {
     LibraryUtility libraryUtility = new LibraryUtility();

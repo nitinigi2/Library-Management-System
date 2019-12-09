@@ -1,5 +1,15 @@
 package com.info.utility;
 
+import com.info.bean.Book;
+import com.info.bean.BookType;
+import com.info.bean.Customer;
+import com.info.bean.Vendor;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.query.Query;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
@@ -9,22 +19,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.info.bean.*;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.engine.jdbc.connections.internal.UserSuppliedConnectionProviderImpl;
-import org.hibernate.query.Query;
-
 public class LibraryUtility {
 
     private static int totalbooks = 0;
-    private static int totalCustomer = 0;
-
-    public int getTotalBooks() {
-        return totalbooks;
-    }
 
     public void addCustomer(Customer customer, SessionFactory sessionFactory) {
         Session session = sessionFactory.openSession();
@@ -187,12 +184,12 @@ public class LibraryUtility {
 
             System.out.println("Book issued successfully. ");
         }
-        else if(book==null || book.getCanBeIssued()==false){                                                                                              // cannot issue this book
-            System.out.println("This book is not present in library.");
-            return;
-        }
         else if(customer==null){
             System.out.println("This customer doesn't exist");
+            return;
+        }
+        else if(book==null || book.getCanBeIssued()==false){                                                                                              // cannot issue this book
+            System.out.println("This book is not present in library.");
             return;
         }
         else if(customer.getNoBooksCanBeIssued()==0){
@@ -387,9 +384,6 @@ public class LibraryUtility {
         }
         return dateIsValid;
     }
-
-
-
 
     VendorData vendorData = new VendorData();
 

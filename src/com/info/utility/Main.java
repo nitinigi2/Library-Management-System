@@ -1,11 +1,10 @@
 package com.info.utility;
 
-import java.util.Scanner;
-
-import com.info.bean.Customer;
 import com.info.bean.Librarian;
 import com.info.view.CustomerView;
 import com.info.view.LibraryView;
+
+import java.util.Scanner;
 
 public class Main {
     public static void main(String args[]) {
