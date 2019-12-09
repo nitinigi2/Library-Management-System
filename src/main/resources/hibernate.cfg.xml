@@ -10,7 +10,7 @@
 
         <!-- Assume demo is the database name -->
 
-        <property name = "hibernate.connection.url">jdbc:mysql://localhost:3306/demo</property>
+        <property name = "hibernate.connection.url">jdbc:mysql://localhost:3306/demo?serverTimezone=UTC&amp;useSSL=false</property>
 
         <property name = "hibernate.connection.username">root</property>
 
@@ -20,7 +20,7 @@
         <property name="hibernate.hbm2ddl.auto">update</property>
 
         <!--to show sql queries-->
-        <property name="show_sql">true</property>
+        <property name="show_sql">false</property>
 
         <!-- List of XML mapping files -->
         <!--mapping resource = "Customer.hbm.xml"/-->

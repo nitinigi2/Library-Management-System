@@ -10,6 +10,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
@@ -20,8 +21,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class LibraryUtility {
-
-    private static int totalbooks = 0;
 
     public void addCustomer(Customer customer, SessionFactory sessionFactory) {
         Session session = sessionFactory.openSession();
@@ -77,7 +76,6 @@ public class LibraryUtility {
         try {
             bookType1 = (BookType) query.getSingleResult();
         }catch (Exception e){
-            System.out.println("Some error occurred. please try again.");
         }
 
         if(bookType1==null){
@@ -130,7 +128,7 @@ public class LibraryUtility {
                 e.printStackTrace();
             }
             bookIndex++;
-            System.out.println("Bar Codes: " + barCode);
+            //System.out.println("Bar Codes: " + barCode);
         }
         session.close();
     }
@@ -224,6 +222,9 @@ public class LibraryUtility {
         }
         else if(customer==null){
             System.out.println("Customer doesn't exist. ");
+        }
+        else if(book.getIssuedby()==null) {
+            System.out.println("This book is not issued. ");
         }
         else if(!book.getIssuedby().equals(customer)) {
             System.out.println("You have not issued this book");
@@ -385,73 +386,74 @@ public class LibraryUtility {
         return dateIsValid;
     }
 
-    VendorData vendorData = new VendorData();
+    ParseVendorData parseVendorData = new ParseVendorData();
 
-    public void addVendorData(SessionFactory sessionFactory) {
-        vendorData.generateBookList(sessionFactory);
-        vendorData.generateVendorData(sessionFactory);
-    }
+    public boolean orderBook(String vendorId, String bookName, String bookAuthor, int quantity, SessionFactory sessionFactory) throws IOException {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
 
-    public boolean orderBook(String vendorId, String bookName, String bookAuthor, int quantity, SessionFactory sessionFactory) {
-        for (Vendor vendor : vendorData.getVendorArrayList()) {
-            if (vendor.getId().equals(vendorId)) {
-                for (BookType bookType : vendor.getVendorBookTypeList()) {
-                    if (bookType.getBookName().equals(bookName) && bookType.getAuthor().equals(bookAuthor) && quantity > bookType.getBookQuantity()) {
-                        System.out.println("This quantity of bookType is not available. ");
-                        return false;
-                    }
-                    if (bookType.getBookName().equals(bookName) && bookType.getAuthor().equals(bookAuthor) && bookType.getBookQuantity() >= quantity) {
-                        BookType newBookType = new BookType(bookType);
-                        // update data in vendor list
-                        bookType.setBookQuantity(bookType.getBookQuantity() - quantity);
+        Query query = session.createQuery("from Vendor where id = :id");
+        query.setParameter("id", vendorId);
+        Vendor vendor=null;
+        try {
+            vendor = (Vendor) query.getSingleResult();
+        }catch (Exception e){
+            System.out.println("Error occurred while ordering. ");
+        }finally {
+            session.close();
+        }
 
-                        // add books in library
-                        newBookType.setBookQuantity(quantity);
-                        newBookType.setSubject(bookType.getSubject());
-                        // System.out.println(bookType.getBookQuantity());
-                        addBookType(newBookType, sessionFactory, vendor);
-                        return true;
-                    }
-                }
+        for(BookType bookType : parseVendorData.getVendorsBook().get(vendorId)){
+            if(bookType.getBookName().equals(bookName) && bookType.getAuthor().equals(bookAuthor)){
+                bookType.setBookQuantity(quantity);
+                addBookType(bookType, sessionFactory, vendor);
+                return true;
             }
         }
         return false;
     }
 
-    public void showVendorList(SessionFactory sessionFactory) {
+    public void showVendorList(SessionFactory sessionFactory) throws IOException {
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
 
         Query query = session.createQuery("from Vendor");
-        List list = query.list();
-        System.out.println(list);
+        List<Vendor> list = query.list();
+        System.out.println("Vendor Details: ");
+        System.out.format("%16s", "Id");
+        System.out.println();
+
+        for (Vendor vendor : list) {
+            System.out.format("%16s", vendor.getId());
+            System.out.println();
+        }
         tx.commit();
         session.close();
 
-        System.out.println("Vendor Details: ");
-        System.out.format("%16s%16s", "Name", "Id");
-        System.out.println();
-        for (Vendor vendor : vendorData.getVendorArrayList()) {
-            System.out.format("%16s%16s", vendor.getName(), vendor.getId());
-            System.out.println();
-        }
     }
 
-    public void checkStockInVendor(String vendorId) {
-        boolean isValidVendor = false;
-        Vendor vendorObj = null;
-        for (Vendor vendor : vendorData.getVendorArrayList()) {
-            if (vendor.getId().equals(vendorId)) {
-                isValidVendor = true;
-                vendorObj = vendor;
-                break;
-            }
+    public void checkStockInVendor(String vendorId, SessionFactory sessionFactory) throws IOException {
+        Session session = sessionFactory.openSession();
+        Transaction tx = session.beginTransaction();
+
+        Query query = session.createQuery("from Vendor where id = :id");
+        query.setParameter("id", vendorId);
+        Vendor vendor=null;
+        try {
+            vendor = (Vendor) query.getSingleResult();
+        }catch (Exception e){
+            System.out.println("Some error occurred while checking stock. ");
+        }finally {
+            session.close();
         }
+
+        boolean isValidVendor=false;
+        if(vendor!=null) isValidVendor=true;
 
         if (isValidVendor) {
             System.out.format("%16s%16s%16s%32s", "Name", "Author", "BookType Id", "Number of Books");
             System.out.println();
-            for (BookType bookType : vendorObj.getVendorBookTypeList()) {
+            for (BookType bookType : parseVendorData.getVendorsBook().get(vendorId)) {
                 System.out.format("%16s%16s%16s%32s", bookType.getBookName(), bookType.getAuthor(), bookType.getBookId(), bookType.getBookQuantity());
                 System.out.println();
             }
@@ -471,11 +473,23 @@ public class LibraryUtility {
         return name + dob.replaceAll("\\s", "");
     }
 
-    public boolean isValidVendorId(String id) {
+    public boolean isValidVendorId(String id, SessionFactory sessionFactory) {
         if (id.trim().equals("")) return false;
-        for (Vendor vendor : vendorData.getVendorArrayList()) {
-            if (vendor.getId().equals(id)) return true;
+
+        Session session = sessionFactory.openSession();
+        Transaction tx = session.beginTransaction();
+        Query query = session.createQuery("from Vendor where id = :id");
+        query.setParameter("id", id);
+        Vendor vendor=null;
+        try {
+            vendor = (Vendor) query.getSingleResult();
+        }catch (Exception e){
+            System.out.println("Some error occurred while checking stock. ");
+        }finally {
+            session.close();
         }
+
+        if(vendor!=null) return true;
         return false;
     }
 

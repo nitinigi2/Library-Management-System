@@ -6,11 +6,12 @@ import com.info.utility.CustomerUtility;
 import com.info.utility.LibraryUtility;
 import org.hibernate.SessionFactory;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class LibraryView {
 
-    public void view(String librarianId, SessionFactory sessionFactory) {
+    public void view(String librarianId, SessionFactory sessionFactory) throws IOException {
 
         Scanner scan = new Scanner(System.in);
 
@@ -134,10 +135,10 @@ public class LibraryView {
                     System.out.print("Enter Vendor Id: ");
                     do {
                         vendorId = scan.nextLine().trim();
-                        if (!lib.isValidVendorId(vendorId)) {
+                        if (!lib.isValidVendorId(vendorId, sessionFactory)) {
                             System.out.println("This vendor id is not valid. ");
                         }
-                    } while (!lib.isValidVendorId(vendorId));
+                    } while (!lib.isValidVendorId(vendorId, sessionFactory));
 
                     System.out.print("Enter BookType name ");
                     String bookname = scan.nextLine().trim();
@@ -214,10 +215,10 @@ public class LibraryView {
                     do {
                         System.out.print("Enter vendor id: ");
                         vendor_id = scan.next().trim();
-                        if (!lib.isValidVendorId(vendor_id)) System.out.println("Not a valid vendor id. ");
-                    } while (!lib.isValidVendorId(vendor_id));
+                        if (!lib.isValidVendorId(vendor_id, sessionFactory)) System.out.println("Not a valid vendor id. ");
+                    } while (!lib.isValidVendorId(vendor_id, sessionFactory));
 
-                    lib.checkStockInVendor(vendor_id);
+                    lib.checkStockInVendor(vendor_id, sessionFactory);
                     break;
 
                 default:

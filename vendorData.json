@@ -1,6 +1,5 @@
 {
   "vendor1": [{
-    "bookQuantity" : "300",
     "author" : "XYZ",
     "subject" : "C",
     "price" : "400",
@@ -10,7 +9,6 @@
   },
 
     {
-      "bookQuantity" : "150",
       "author" : "UVW",
       "subject" : "C++",
       "price" : "450",
@@ -21,7 +19,7 @@
   ],
 
   "vendor2": [{
-    "bookQuantity" : "250",
+
     "author" : "XYZ",
     "subject" : "Physics",
     "price" : "500",
@@ -31,7 +29,6 @@
   },
 
     {
-      "bookQuantity" : "150",
       "author" : "UVW",
       "subject" : "Chemistry",
       "price" : "450",
@@ -42,7 +39,6 @@
   ],
 
   "vendor3": [{
-    "bookQuantity" : "250",
     "author" : "XYZ",
     "subject" : "Math",
     "price" : "300",
@@ -52,7 +48,6 @@
   },
 
     {
-      "bookQuantity" : "150",
       "author" : "UVW",
       "subject" : "English",
       "price" : "150",
@@ -63,7 +58,6 @@
   ],
 
   "vendor4": [{
-    "bookQuantity" : "250",
     "author" : "XYZ",
     "subject" : "Java",
     "price" : "500",
@@ -73,7 +67,6 @@
   },
 
     {
-      "bookQuantity" : "80",
       "author" : "UVW",
       "subject" : "Data Structures",
       "price" : "550",
@@ -84,7 +77,6 @@
   ],
 
   "vendor5": [{
-    "bookQuantity" : "50",
     "author" : "XYZ",
     "subject" : "Algorithm",
     "price" : "650",
@@ -94,7 +86,6 @@
   },
 
     {
-      "bookQuantity" : "100",
       "author" : "UVW",
       "subject" : "Machine Learning",
       "price" : "720",

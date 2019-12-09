@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String args[]) {
+    public static void main(String args[]) throws IOException {
         SessionClass sessionClass = new SessionClass();
 
         sessionClass.createSessionFactoryObject();
@@ -33,7 +33,7 @@ public class Main {
 
         LibraryUtility lib = new LibraryUtility();
         //to be commented once data is loaded
-        lib.addVendorData(sessionFactory);   // to load vendor data only 1 time
+       // parseVendorData.setVendorsInDB(sessionFactory);
 
         int option = 0;
 
