@@ -68,6 +68,11 @@
             <scope>provided</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.maven.archetypes</groupId>
+            <artifactId>maven-archetype-webapp</artifactId>
+            <version>1.4</version>
+        </dependency>
 
 
     </dependencies>

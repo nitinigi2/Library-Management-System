@@ -1,43 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c1b34f6e-c237-4b71-95d4-54a5f85d400b" name="Default Changelist" comment="">
+    <list default="true" id="3e34490c-5463-4e99-81f5-6da428f630bf" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/com/info/bean/Book.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/info/bean/Book.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/com/info/bean/BookEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/info/bean/BookEntity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/com/info/bean/Customer.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/info/bean/Customer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/com/info/bean/FineBook.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/info/bean/FineBook.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/com/info/bean/Librarian.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/info/bean/Librarian.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/com/info/bean/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/info/bean/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/com/info/bean/Vendor.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/info/bean/Vendor.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/com/info/utility/CommonUtility.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/info/utility/CommonUtility.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/com/info/utility/CustomerUtility.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/info/utility/CustomerUtility.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/com/info/utility/LibraryUtility.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/info/utility/LibraryUtility.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/com/info/utility/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/info/utility/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/com/info/utility/VendorList.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/info/utility/VendorList.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/com/info/view/CustomerView.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/info/view/CustomerView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/com/info/view/LibraryView.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/info/view/LibraryView.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/info/utility/CustomerUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/info/utility/CustomerUtility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/info/utility/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/info/utility/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/LibraryManagementSystem-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/LibraryManagementSystem-1.0-SNAPSHOT.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/info/utility/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/info/utility/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/info/utility/CustomerUtility.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/info/utility/CustomerUtility.class" afterDir="false" />
     </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="jdkForImporter" value="1.8" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1Uk5QeZCoi0jBUNs2oXz1q5sufE" />
   <component name="PropertiesComponent">
     <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
-  </component>
-  <component name="RunAnythingCache">
-    <option name="myCommands">
-      <command value="mvn install" />
-    </option>
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -75,6 +64,13 @@
     <configuration />
   </component>
   <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3e34490c-5463-4e99-81f5-6da428f630bf" name="Default Changelist" comment="" />
+      <created>1575887737326</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1575887737326</updated>
+    </task>
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -82,7 +78,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>

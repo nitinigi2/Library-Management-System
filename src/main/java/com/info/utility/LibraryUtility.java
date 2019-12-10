@@ -35,7 +35,7 @@ public class LibraryUtility {
         try {
             customer1 = (Customer) query.getSingleResult();
         }catch (Exception e){
-            System.out.println("Cannot add this customer. Please try again. ");
+
         }
 
         if(customer1!=null){
@@ -145,7 +145,7 @@ public class LibraryUtility {
         try {
             book = (Book) query.getSingleResult();
         }catch (Exception e){
-            System.out.println("Some error occurred. Cannot issue book. Please try again....");
+
         }
 
         // getting customer from Customer table
@@ -208,7 +208,7 @@ public class LibraryUtility {
         try {
             book = (Book) query.getSingleResult();
         }catch (Exception e){
-            System.out.println("Cannot return book. Please try again");
+
         }
         BookType bookType = book.getBookType();
 
