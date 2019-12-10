@@ -442,7 +442,7 @@ public class LibraryUtility {
         try {
             vendor = (Vendor) query.getSingleResult();
         }catch (Exception e){
-            System.out.println("Some error occurred while checking stock. ");
+
         }finally {
             session.close();
         }
@@ -470,7 +470,7 @@ public class LibraryUtility {
     }
 
     public String generatePassword(String name, String dob) {
-        return name + dob.replaceAll("\\s", "");
+        return name.substring(0,2) + dob.replaceAll("\\s", "");
     }
 
     public boolean isValidVendorId(String id, SessionFactory sessionFactory) {
@@ -484,7 +484,7 @@ public class LibraryUtility {
         try {
             vendor = (Vendor) query.getSingleResult();
         }catch (Exception e){
-            System.out.println("Some error occurred while checking stock. ");
+
         }finally {
             session.close();
         }
