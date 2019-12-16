@@ -3,8 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="3e34490c-5463-4e99-81f5-6da428f630bf" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/info/utility/LibraryUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/info/utility/LibraryUtility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/info/utility/LibraryUtility.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/info/utility/LibraryUtility.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/info/utility/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/info/utility/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/info/view/LibraryView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/info/view/LibraryView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/info/utility/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/info/utility/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/info/view/LibraryView.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/info/view/LibraryView.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -23,7 +25,14 @@
     </option>
   </component>
   <component name="ProjectId" id="1Uk5QeZCoi0jBUNs2oXz1q5sufE" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -70,6 +79,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1575887737326</updated>
+      <workItem from="1575970053425" duration="10000" />
+      <workItem from="1576389131948" duration="16000" />
     </task>
     <servers />
   </component>
@@ -85,5 +96,11 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="379" y="187" key="com.intellij.ide.util.TipDialog" timestamp="1576389144085">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="379" y="187" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1576389144085" />
   </component>
 </project>

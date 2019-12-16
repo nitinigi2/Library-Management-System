@@ -244,6 +244,9 @@ public class LibraryView {
 
         } while (option != 13);
 
-        if (option == 13) System.out.println("Logout Successfully. ");
+        if (option == 13)
+        {
+            System.out.println("Logout Successfully. ");
+        }
     }
 }

@@ -19,6 +19,8 @@ public class Main {
         // reading vendors bookData
         ParseVendorData parseVendorData = new ParseVendorData();
 
+        //-----------------------------------to be commented once data is loaded-----------------------------
+        // parseVendorData.setVendorsInDB(sessionFactory);
 
         LibraryView libraryView = new LibraryView();
         CustomerView customerView = new CustomerView();
@@ -32,10 +34,9 @@ public class Main {
         System.out.println("_______________________Digital Library_______________________________\n");
 
         LibraryUtility lib = new LibraryUtility();
-        //to be commented once data is loaded
-       // parseVendorData.setVendorsInDB(sessionFactory);
 
-        int option = 0;
+
+        long option = 0;
 
         do {
             System.out.println();
@@ -48,12 +49,12 @@ public class Main {
             System.out.println("Enter a option: ");
 
             try {
-                option = Integer.parseInt(scan.next());
+                option = Long.parseLong(scan.next().trim());
             } catch (Exception e) {
                 System.out.println("Please enter a valid option. ");
             }
 
-            switch (option) {
+            switch ((int)option) {
                 case 1:
                     System.out.print("Enter Id: ");
                     String id = scan.next().trim();
