@@ -13,7 +13,8 @@ public class Customer extends User {
     private String Dob;
     private int NoBooksCanBeIssued = 3;
 
-    @OneToMany(mappedBy = "issuedby", cascade = CascadeType.ALL)
+
+    @OneToMany(mappedBy = "issuedby", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     List<Book> booksIssuedByCustomer;
 
     public Customer() {

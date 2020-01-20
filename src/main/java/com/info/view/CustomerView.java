@@ -2,16 +2,29 @@ package com.info.view;
 
 import com.info.utility.CommonUtility;
 import com.info.utility.CustomerUtility;
+import com.info.utility.LoginUtility;
 import org.hibernate.SessionFactory;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import java.io.Serializable;
 import java.util.Scanner;
 
-public class CustomerView {
+@ManagedBean
+@SessionScoped
+public class CustomerView implements Serializable {
     CommonUtility commonUtility = new CommonUtility();
+    LoginUtility loginUtility = new LoginUtility();
+    CustomerUtility customerUtility = new CustomerUtility();
     Scanner scan = new Scanner(System.in);
 
+    public void showProfile(String username){
+        SessionFactory sessionFactory = loginUtility.getSessionfactory();
+        customerUtility.showProfile(username, sessionFactory);
+    }
+
     public void customerView(String id, SessionFactory sessionFactory) {
-        CustomerUtility customerUtility = new CustomerUtility();
+
         System.out.println("Logged in as Customer Successfully.....");
 
 

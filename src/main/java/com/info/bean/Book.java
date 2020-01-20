@@ -10,7 +10,7 @@ public class Book{
     private int barcode;
     private String DateOfIssue;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Customer issuedby;
     private boolean canBeIssued;
 

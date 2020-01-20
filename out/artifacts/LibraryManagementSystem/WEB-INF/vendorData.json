@@ -1,0 +1,100 @@
+{
+  "vendor1": [{
+    "author" : "XYZ",
+    "subject" : "C",
+    "price" : "400",
+    "bookName" : "Let us C",
+    "bookId" : "001"
+
+  },
+
+    {
+      "author" : "UVW",
+      "subject" : "C++",
+      "price" : "450",
+      "bookName" : "Let us C++",
+      "bookId" : "002"
+
+    }
+  ],
+
+  "vendor2": [{
+
+    "author" : "XYZ",
+    "subject" : "Physics",
+    "price" : "500",
+    "bookName" : "Fundamentals of Physics",
+    "bookId" : "101"
+
+  },
+
+    {
+      "author" : "UVW",
+      "subject" : "Chemistry",
+      "price" : "450",
+      "bookName" : "Fundamentals of Chemistry",
+      "bookId" : "102"
+
+    }
+  ],
+
+  "vendor3": [{
+    "author" : "XYZ",
+    "subject" : "Math",
+    "price" : "300",
+    "bookName" : "RD Sharma",
+    "bookId" : "201"
+
+  },
+
+    {
+      "author" : "UVW",
+      "subject" : "English",
+      "price" : "150",
+      "bookName" : "Learn English",
+      "bookId" : "202"
+
+    }
+  ],
+
+  "vendor4": [{
+    "author" : "XYZ",
+    "subject" : "Java",
+    "price" : "500",
+    "bookName" : "Core Java Basics",
+    "bookId" : "301"
+
+  },
+
+    {
+      "author" : "UVW",
+      "subject" : "Data Structures",
+      "price" : "550",
+      "bookName" : "Fundamentals of Data Structures",
+      "bookId" : "302"
+
+    }
+  ],
+
+  "vendor5": [{
+    "author" : "XYZ",
+    "subject" : "Algorithm",
+    "price" : "650",
+    "bookName" : "Analysis and design of Algorithm",
+    "bookId" : "301"
+
+  },
+
+    {
+      "author" : "UVW",
+      "subject" : "Machine Learning",
+      "price" : "720",
+      "bookName" : "Learn Machine Learning",
+      "bookId" : "302"
+
+    }
+  ]
+
+
+
+}

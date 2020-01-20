@@ -181,8 +181,8 @@ public class LibraryView {
                         System.out.println("Enter valid bar code");
                         break;
                     }
-
-                    lib.returnBook(cusid, barCode, sessionFactory);
+                    double money=0;
+                    lib.returnBook(cusid, barCode, sessionFactory, money);
                     break;
                 case 6:
                     System.out.print("Enter Customer Id: ");

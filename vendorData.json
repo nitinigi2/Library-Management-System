@@ -1,4 +1,4 @@
-{
+var myData = {
   "vendor1": [{
     "author" : "XYZ",
     "subject" : "C",
@@ -95,6 +95,4 @@
     }
   ]
 
-
-
-}
+};

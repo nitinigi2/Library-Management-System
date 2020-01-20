@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ice="http://java.sun.com/jsf/html">
+
+<h:head>
+    <link rel="stylesheet" href="test.css"/>
+    <link href="myscript.js"/>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript" src="vendorData.json"></script>
+    <script type="text/javascript">
+        $(function () {
+            $(".datepicker").datepicker({
+                dateFormat: 'dd-mm-yy',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: '1950:2020'
+            });
+        });
+
+        function  ll() {
+            var vendor = document.getElementById(".vendorName");
+            console.log(vendor);
+            for(x in myData){
+                var data = myData[x];
+                for(y in data){
+                    console.log(data[y]);
+                }
+            }
+        }
+
+    </script>
+
+</h:head>
+
+<h:body>
+    <h1 class="centered">Library Management System</h1>
+
+    <h:form>
+        <h:commandButton value="Add Customer" actionListener="#{librarianPageSource.addCustomerAction}"/>
+        <h:commandButton value="Order Books" actionListener="#{librarianPageSource.orderBooksAction}"/>
+        <h:commandButton value="Issue Book" actionListener="#{librarianPageSource.issueBookAction}"/>
+        <h:commandButton value="Return Book" actionListener="#{librarianPageSource.returnBookAction}"/>
+        <h:commandButton value="books issued by customer"
+                         actionListener="#{librarianPageSource.showBooksIssuedByCustomerAction}"/>
+        <h:commandButton value="Search Book" actionListener="#{customerPageSource.showSearchAction}"/>
+        <h:commandButton value="Logout" action="#{loginPageSource.logOut()}"/>
+    </h:form>
+    <br/>
+
+    <h:form rendered="#{librarianPageSource.addNewCustomer}" id="addCustomer">
+        Name: <h:inputText id="username" value="#{librarianPageSource.name}"/><br/>
+        Mobile Number: <h:inputText value="#{librarianPageSource.mobileNumber}" required="true"
+                                    requiredMessage="Enter Mobile Number"/><br/>
+        Address: <h:inputText value="#{librarianPageSource.address}" required="true"
+                              requiredMessage="Enter Address"/><br/>
+        DOB: <h:inputText styleClass="datepicker" value="#{librarianPageSource.dob}" required="true"
+                          requiredMessage="Enter DOB"/><br/>
+        <h:commandButton value="Submit" action="#{librarianPageSource.addCustomer()}"/>
+    </h:form>
+
+    <!-- Order Books -->
+    <h:form rendered="#{librarianPageSource.orderNewBooks}">
+        <h:selectOneMenu value="#{librarianPageSource.vendorId}" partialSubmit="true" onchange="ll();" styleClass="vendorName" >
+            <f:selectItems value="#{librarianPageSource.showVendorsName()}"/>
+        </h:selectOneMenu>
+        <br/>
+        <!-- Vendor Id: <h:inputText value="#{librarianPageSource.vendorId}"/> <br/> -->
+        Book Name: <h:inputText value="#{librarianPageSource.bookName}"/><br/>#{librarianPageSource.vendorId}
+        Author Name: <h:inputText value="#{librarianPageSource.bookAuthor}"/><br/>
+        Book Quantity: <h:inputText value="#{librarianPageSource.quant}"/><br/>
+        <h:commandButton value="Submit" action="#{librarianPageSource.orderBook()}"/>
+
+    </h:form>
+
+    <h:form rendered="#{librarianPageSource.bookIssueboolean}">
+        Customer Id: <h:inputText value="#{librarianPageSource.customerId}"/> <br/>
+        BarCode: <h:inputText value="#{librarianPageSource.barCode}"/><br/>
+        <h:commandButton value="Submit" action="#{librarianPageSource.issueBook()}"/>
+    </h:form>
+
+    <h:form rendered="#{librarianPageSource.returnBookBoolean}">
+        Customer Id: <h:inputText value="#{librarianPageSource.customerId}"/> <br/>
+        BarCode: <h:inputText value="#{librarianPageSource.barCode}"/><br/>
+        Enter Amount: <h:inputText id="amount" value="#{librarianPageSource.money}"/><br/>
+        <h:commandButton value="Check Fine" actionListener="#{librarianPageSource.fineAction}"/><br/>
+        <h:commandButton value="Submit" action="#{librarianPageSource.returnBook()}"/><br/>
+
+    </h:form>
+
+    <h:form rendered="#{librarianPageSource.showBooksIssuedByCustomer}">
+        Customer Id: <h:inputText value="#{librarianPageSource.customerId}"/>
+        <h:commandButton value="Submit" actionListener="#{librarianPageSource.submitClickedAction}"/>
+    </h:form>
+    <h:dataTable rendered="#{librarianPageSource.submitClicked}"
+                 value="#{librarianPageSource.showBooksByCustomer()}" var="booksbycustomer">
+        <h:column>
+            BarCode: <h:outputText value="#{booksbycustomer.barcode}"/><br/>
+            Date of Issue<h:outputText value="#{booksbycustomer.dateOfIssue}"/>
+        </h:column>
+    </h:dataTable>
+
+    <!-- Search Book -->
+    <h:form rendered="#{customerPageSource.showSearch}">
+        <h:inputText value="#{customerPageSource.bookProp}"/>
+
+        <h:selectOneMenu id="type" value="#{customerPageSource.bookType}">
+            <f:selectItem itemValue="Book Name"/>
+            <f:selectItem itemValue="Subject Name"/>
+            <f:selectItem itemValue="Author Name"/>
+        </h:selectOneMenu>
+        <h:commandButton value="Submit" actionListener="#{customerPageSource.showBooks}"/>
+    </h:form>
+    <h:dataTable rendered="#{customerPageSource.showBook}" value=" #{customerPageSource.searchBooks()}">
+        <h:column>
+            BookName: <h:outputText value="#{customerPageSource.bookName}"/><br/>
+            BookAuthor: <h:outputText value="#{customerPageSource.bookAuthor}"/><br/>
+            Quantity: <h:outputText value="#{customerPageSource.quantity}"/><br/>
+        </h:column>
+    </h:dataTable>
+    <br/>
+
+    <h:outputText value="#{librarianPageSource.message}"/>
+    <h:outputText value="#{customerPageSource.message}"/>
+
+
+</h:body>
+
+</html>

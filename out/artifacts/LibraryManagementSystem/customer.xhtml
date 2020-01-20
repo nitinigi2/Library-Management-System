@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ice="http://java.sun.com/jsf/html">
+<h:head>
+    <link rel="stylesheet" href="test.css"/>
+</h:head>
+
+<h:body>
+    <div class="centered">
+        <h1>Library Management System</h1>
+    </div>
+
+    <br/>
+
+    <h:form>
+        <h:commandButton value="Show Profile" actionListener="#{customerPageSource.showMe}"/>
+    </h:form>
+
+    <br/>
+    <h:dataTable rendered="#{customerPageSource.show}" value="#{customerPageSource.showProfile()}" var="details">
+        <h:column>
+            Name: <h:outputText value="#{details.name}"/><br/>
+            UserId: <h:outputText value="#{details.id}"/><br/>
+            Address : <h:outputText value="#{details.address}"/> <br/>
+            Mobile Number: <h:outputText value="#{details.mobNumber}"/><br/>
+            Date of Birth: <h:outputText value="#{details.dob}"/><br/>
+            Number of books can issue: <h:outputText value="#{details.noBooksCanBeIssued}"/><br/>
+        </h:column>
+    </h:dataTable>
+
+
+    <!-- Search Book -->
+    <h:form>
+    <h:inputText value="#{customerPageSource.bookProp}"/>
+
+    <h:selectOneMenu id="type" value="#{customerPageSource.bookType}">
+        <f:selectItem itemValue="Book Name"/>
+        <f:selectItem itemValue="Subject Name"/>
+        <f:selectItem itemValue="Author Name"/>
+    </h:selectOneMenu>
+
+    <h:commandButton value="Search Book" actionListener="#{customerPageSource.showBooks}"/>
+    </h:form>
+
+    <h:dataTable rendered="#{customerPageSource.showBook}" value=" #{customerPageSource.searchBooks()}" var="book">
+        <h:column>
+            #{book}
+            <h:outputText value="#{book}"/>
+            #{book.getSubject()}
+        </h:column>
+    </h:dataTable>
+
+    <br/>
+    <ice:form>
+    <ice:commandButton value="Logout" action="#{loginPageSource.logOut()}"/>
+    </ice:form>
+
+</h:body>
+
+</html>

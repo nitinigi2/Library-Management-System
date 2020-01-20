@@ -1,6 +1,7 @@
 package com.info.bean;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Embeddable
@@ -103,4 +104,37 @@ public class BookType {
 		this.bookId = bookId;
 	}
 
+	@Override
+	public String toString() {
+		return "BookType{" +
+				"book_entity_id=" + book_entity_id +
+				", bookName='" + bookName + '\'' +
+				", author='" + author + '\'' +
+				", bookId='" + bookId + '\'' +
+				", subject='" + subject + '\'' +
+				", bookQuantity=" + bookQuantity +
+				", price=" + price +
+				", vendor=" + vendor +
+				'}';
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		BookType bookType = (BookType) o;
+		return book_entity_id == bookType.book_entity_id &&
+				bookQuantity == bookType.bookQuantity &&
+				Double.compare(bookType.price, price) == 0 &&
+				Objects.equals(bookName, bookType.bookName) &&
+				Objects.equals(author, bookType.author) &&
+				Objects.equals(bookId, bookType.bookId) &&
+				Objects.equals(subject, bookType.subject) &&
+				Objects.equals(vendor, bookType.vendor);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(book_entity_id, bookName, author, bookId, subject, bookQuantity, price, vendor);
+	}
 }

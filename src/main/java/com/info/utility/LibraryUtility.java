@@ -4,12 +4,14 @@ import com.info.bean.Book;
 import com.info.bean.BookType;
 import com.info.bean.Customer;
 import com.info.bean.Vendor;
+import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import javax.ejb.Stateless;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,9 +22,12 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Stateless
 public class LibraryUtility {
 
-    public void addCustomer(Customer customer, SessionFactory sessionFactory) {
+    final static Logger logger = Logger.getLogger(LibraryUtility.class);
+
+    public String addCustomer(Customer customer, SessionFactory sessionFactory) {
         Session session = sessionFactory.openSession();
         Transaction tx = null;
 
@@ -31,19 +36,26 @@ public class LibraryUtility {
         Query query = session.createQuery("from Customer where id = :id");
         query.setParameter("id", customer.getId());
 
-        Customer customer1=null;
+        Customer customer1 = null;
         try {
             customer1 = (Customer) query.getSingleResult();
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
 
-        if(customer1!=null){
-            isCustomerAdd=false;
-            System.out.println("Customer already exist");
-            System.out.println("Id: " + customer1.getId() + " " + "password: " + customer1.getPassword());
-            return;
+        if (customer1 != null) {
+            isCustomerAdd = false;
+            return ("Customer already exist\n" + "Id: " + customer1.getId() + " " + "password: " + customer1.getPassword());
         }
+        String id = generateId(customer.getName(), customer.getMobNumber(), customer.getDob(), customer.getAddress());
+        customer.setId(id);
+
+        if (isValidCustomerId(id, sessionFactory)) {
+            return ("Customer already exist. Cannot add this customer. ");
+        }
+
+        String password = generatePassword(customer.getName(), customer.getDob());
+        customer.setPassword(password);
 
         if (isCustomerAdd) {
             try {
@@ -58,8 +70,8 @@ public class LibraryUtility {
                 session.close();
             }
         }
-
-        System.out.println("Id: " + customer.getId() + " password: " + customer.getPassword());
+        logger.info(customer);
+        return ("Customer Added Successfully. \n" + "Id: " + customer.getId() + " password: " + customer.getPassword());
     }
 
     public void addBookType(BookType bookType, SessionFactory sessionFactory, Vendor vendor) {
@@ -71,14 +83,14 @@ public class LibraryUtility {
         Query query = session.createQuery("from BookType where bookId = :bookId");
         query.setParameter("bookId", bookType.getBookId());
 
-        BookType bookType1=null;
+        BookType bookType1 = null;
 
         try {
             bookType1 = (BookType) query.getSingleResult();
-        }catch (Exception e){
+        } catch (Exception e) {
         }
 
-        if(bookType1==null){
+        if (bookType1 == null) {
             try {
                 tx = session.beginTransaction();
                 session.save(bookType);
@@ -91,8 +103,7 @@ public class LibraryUtility {
                 session.close();
             }
             addBooks(bookType, sessionFactory);
-        }
-        else{
+        } else {
             System.out.println("BookType already exist.");
             tx = session.beginTransaction();
             bookType1.setBookQuantity(bookType1.getBookQuantity() + bookType.getBookQuantity());
@@ -133,7 +144,7 @@ public class LibraryUtility {
         session.close();
     }
 
-    public void issueBook(String cusId, int barCode, SessionFactory sessionFactory) {
+    public String issueBook(String cusId, int barCode, SessionFactory sessionFactory) {
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
 
@@ -141,37 +152,37 @@ public class LibraryUtility {
         // getting book from bok table
         Query query = session.createQuery("from Book where barcode = :barcode");
         query.setParameter("barcode", barCode);
-        Book book=null;
+        Book book = null;
         try {
             book = (Book) query.getSingleResult();
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
 
         // getting customer from Customer table
         Query query1 = session.createQuery("from User where id = :id");
         query1.setParameter("id", cusId);
-        Customer customer=null;
-        try{
-            customer = (Customer)query1.getSingleResult();
-        }catch (Exception e){
+        Customer customer = null;
+        try {
+            customer = (Customer) query1.getSingleResult();
+        } catch (Exception e) {
 
         }
 
-        if(book!=null && book.getCanBeIssued() && customer!=null && customer.getNoBooksCanBeIssued()>0){    // can issue this book
+        if (book != null && book.getCanBeIssued() && customer != null && customer.getNoBooksCanBeIssued() > 0) {    // can issue this book
             // updating book
             book.setIssuedby(customer);
             book.setDateOfIssue(new SimpleDateFormat("dd MM yyyy").format(Calendar.getInstance().getTime()));
             book.setCanBeIssued(false);
 
             // updating customer
-            customer.setNoBooksCanBeIssued(customer.getNoBooksCanBeIssued()-1);
+            customer.setNoBooksCanBeIssued(customer.getNoBooksCanBeIssued() - 1);
             customer.getBooksIssuedByCustomer().add(book);
             customer.setBooksIssuedByCustomer(customer.getBooksIssuedByCustomer());
 
             // updating bookType
             BookType bookType = book.getBookType();
-            bookType.setBookQuantity(bookType.getBookQuantity()-1);
+            bookType.setBookQuantity(bookType.getBookQuantity() - 1);
 
             // updating session
             session.update(book);
@@ -180,84 +191,129 @@ public class LibraryUtility {
             tx.commit();
             session.close();
 
-            System.out.println("Book issued successfully. ");
+            return ("Book issued successfully. ");
+        } else if (customer == null) {
+            return ("This customer doesn't exist");
+        } else if (book == null || book.getCanBeIssued() == false) {                                                                                              // cannot issue this book
+            return ("This book is not present in library.");
+        } else if (customer.getNoBooksCanBeIssued() == 0) {
+            return ("You have already issued maximum no of books. ");
         }
-        else if(customer==null){
-            System.out.println("This customer doesn't exist");
-            return;
-        }
-        else if(book==null || book.getCanBeIssued()==false){                                                                                              // cannot issue this book
-            System.out.println("This book is not present in library.");
-            return;
-        }
-        else if(customer.getNoBooksCanBeIssued()==0){
-            System.out.println("You have already issued maximum no of books. ");
-        }
-
+        return "";
     }
 
-    public void returnBook(String customerId, int barCode, SessionFactory sessionFactory) {
-        Scanner scan = new Scanner(System.in);
+    public double fineOnBook(String customerId, int barCode, SessionFactory sessionFactory){
+        System.out.println(barCode);
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        String currentDate = new SimpleDateFormat("dd MM yyyy").format(Calendar.getInstance().getTime());
+
+        long days = 0;
+        double fine = 0;
+
+        SimpleDateFormat myFormat = new SimpleDateFormat("dd MM yyyy");
+
+        // hql query to fetch customer obj from database by id=barcode
+        String hql2 = "from Book where barcode = :barcode";
+        Query query2 = session.createQuery(hql2);
+        query2.setParameter("barcode", barCode);
+        Book book=null;
+        try {
+            book = (Book) query2.getSingleResult();
+        }catch (Exception e){ }
+
+        if(book==null) return 0;
+        BookType bookType = book.getBookType();
+        if(book.getDateOfIssue()==null) return 0;
+
+        try {
+            Date date1 = myFormat.parse(book.getDateOfIssue());
+            Date date2 = myFormat.parse(currentDate);
+            long diff = date2.getTime() - date1.getTime();
+            days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+            // System.out.println(days);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        if (days > 60) {
+            fine = bookType.getPrice();
+        }
+        if (days > 15 && days <= 60) {
+            fine = 15 * ((int) days - 15);
+            return fine;
+        } else fine = 0;
+
+        return fine;
+    }
+
+    public String returnBook(String customerId, int barCode, SessionFactory sessionFactory, double money) {
+        String message = "";
         // opening a session
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
 
         Query query = session.createQuery("from Book where barcode = :barcode");
         query.setParameter("barcode", barCode);
-        Book book=null;
-        try {
-            book = (Book) query.getSingleResult();
-        }catch (Exception e){
-
-        }
-        BookType bookType = book.getBookType();
+        Book book = null;
 
         Query query1 = session.createQuery("from Customer where id = :id");
         query1.setParameter("id", customerId);
-        Customer customer = (Customer) query1.getSingleResult();
+        Customer customer=null;
+        try {
+            book = (Book) query.getSingleResult();
+            customer = (Customer) query1.getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        if(book==null){
-            System.out.println("This book doesn't belong to this library. ");
-            return;
+        BookType bookType=null;
+        if(book!=null) {
+            bookType = book.getBookType();
         }
-        else if(customer==null){
-            System.out.println("Customer doesn't exist. ");
+
+        if (book == null) {
+            message = "This book doesn't belong to this library. ";
+            return message;
+        } else if (customer == null) {
+            message = ("Customer doesn't exist. ");
+            return message;
+        } else if (book.getIssuedby() == null) {
+            message = ("This book is not issued. ");
+            return message;
+        } else if (!book.getIssuedby().equals(customer)) {
+            message = ("You have not issued this book");
+            return message;
         }
-        else if(book.getIssuedby()==null) {
-            System.out.println("This book is not issued. ");
-        }
-        else if(!book.getIssuedby().equals(customer)) {
-            System.out.println("You have not issued this book");
-            return;
-        }
+
         double fine = calculateFineOnBook(customerId, barCode, sessionFactory);
-        System.out.println("Fine on this book: " + fine);
-        if(fine>0) {
-            System.out.println("Enter money to submit this book: ");
-            double money = scan.nextDouble();
+
+        if (fine > 0) {
+            System.out.println("Fine on this book: " + fine);
             if (money >= fine) {
-                bookType.setBookQuantity(bookType.getBookQuantity()+1);
+                bookType.setBookQuantity(bookType.getBookQuantity() + 1);
                 book.setDateOfIssue(null);
                 book.setCanBeIssued(true);
                 book.setIssuedby(null);
-                customer.setNoBooksCanBeIssued(customer.getNoBooksCanBeIssued()+1);
+                customer.setNoBooksCanBeIssued(customer.getNoBooksCanBeIssued() + 1);
                 customer.getBooksIssuedByCustomer().remove(book);
                 customer.setBooksIssuedByCustomer(customer.getBooksIssuedByCustomer());
                 try {
                     session.update(book);
                     session.update(bookType);
                     session.update(customer);
-                    System.out.println("Book returned successfully.");
                     tx.commit();
-                }catch (Exception e){
-                    System.out.println("Some error occurred, please try again........");
+                    message = ("Book returned successfully.");
+                } catch (Exception e) {
+                    message = ("Some error occurred, please try again........");
                     tx.rollback();
-                }finally {
+                } finally {
                     session.close();
                 }
+            } else {
+                message = "Enter correct amount\nTry again to return book";
             }
-        }
-        else {
+        } else {
             bookType.setBookQuantity(bookType.getBookQuantity() + 1);
             book.setCanBeIssued(true);
             book.setIssuedby(null);
@@ -269,16 +325,20 @@ public class LibraryUtility {
                 session.update(book);
                 session.update(bookType);
                 session.update(customer);
-                System.out.println("Book returned successfully.");
                 tx.commit();
+                message = ("Book returned successfully.");
             } catch (Exception e) {
-                System.out.println("Some error occurred, please try again........");
+                message = ("Some error occurred, please try again........");
                 tx.rollback();
             } finally {
                 session.close();
             }
         }
+        return message;
     }
+
+
+
     // total fine for per for customer
     public double calculateFineOnBook(String cusId, int barCode, SessionFactory sessionFactory) {
         Session session = sessionFactory.openSession();
@@ -333,7 +393,7 @@ public class LibraryUtility {
         System.out.format("%16s%32s%32s%48s", "Name", "Mobile Number", "Address", "Number of Books can be issued");
         System.out.println();
 
-        for(Customer c : list){
+        for (Customer c : list) {
             System.out.format("%16s%32d%32s%48d", c.getName(), c.getMobNumber(), c.getAddress(), c.getNoBooksCanBeIssued());
             System.out.println();
         }
@@ -342,7 +402,7 @@ public class LibraryUtility {
     }
 
     public String generateId(String name, long mobNo, String dob, String address) {
-        return name.substring(0,2) + address.substring(0,2) + dob.replaceAll("\\s", "") + String.valueOf(mobNo).substring(0, 2);
+        return name.substring(0, 2) + address.substring(0, 2) + dob.replaceAll("\\s", "") + String.valueOf(mobNo).substring(0, 2);
     }
 
     public boolean isValidAddress(String address) {
@@ -359,10 +419,9 @@ public class LibraryUtility {
         if (name.trim().equals("")) return false;
 
         CharSequence inputStr = name;
-        Pattern pattern = Pattern.compile(new String ("^[a-zA-Z\\s]*$"));
+        Pattern pattern = Pattern.compile(new String("^[a-zA-Z\\s]*$"));
         Matcher matcher = pattern.matcher(inputStr);
-        if(matcher.matches())
-        {
+        if (matcher.matches()) {
             return true;
         }
         return false;
@@ -394,26 +453,27 @@ public class LibraryUtility {
 
         Query query = session.createQuery("from Vendor where id = :id");
         query.setParameter("id", vendorId);
-        Vendor vendor=null;
+        Vendor vendor = null;
         try {
             vendor = (Vendor) query.getSingleResult();
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Error occurred while ordering. ");
-        }finally {
+        } finally {
             session.close();
         }
-
-        for(BookType bookType : parseVendorData.getVendorsBook().get(vendorId)){
-            if(bookType.getBookName().equals(bookName) && bookType.getAuthor().equals(bookAuthor)){
-                bookType.setBookQuantity(quantity);
-                addBookType(bookType, sessionFactory, vendor);
-                return true;
+        if(parseVendorData.getVendorsBook().containsKey(vendorId)) {
+            for (BookType bookType : parseVendorData.getVendorsBook().get(vendorId)) {
+                if (bookType.getBookName().equals(bookName) && bookType.getAuthor().equals(bookAuthor)) {
+                    bookType.setBookQuantity(quantity);
+                    addBookType(bookType, sessionFactory, vendor);
+                    return true;
+                }
             }
         }
         return false;
     }
 
-    public void showVendorList(SessionFactory sessionFactory) throws IOException {
+    public List<Vendor> showVendorList(SessionFactory sessionFactory) throws IOException {
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
 
@@ -429,8 +489,9 @@ public class LibraryUtility {
         }
         tx.commit();
         session.close();
-
+        return list;
     }
+
 
     public void checkStockInVendor(String vendorId, SessionFactory sessionFactory) throws IOException {
         Session session = sessionFactory.openSession();
@@ -438,17 +499,17 @@ public class LibraryUtility {
 
         Query query = session.createQuery("from Vendor where id = :id");
         query.setParameter("id", vendorId);
-        Vendor vendor=null;
+        Vendor vendor = null;
         try {
             vendor = (Vendor) query.getSingleResult();
-        }catch (Exception e){
+        } catch (Exception e) {
 
-        }finally {
+        } finally {
             session.close();
         }
 
-        boolean isValidVendor=false;
-        if(vendor!=null) isValidVendor=true;
+        boolean isValidVendor = false;
+        if (vendor != null) isValidVendor = true;
 
         if (isValidVendor) {
             System.out.format("%32s%32s%32s", "Name", "Author", "BookType Id");
@@ -466,11 +527,11 @@ public class LibraryUtility {
     public int generateBarCode(String bookName, String authorName, double price, int bookIndex) {
         Random random = new Random();
         int randNum = random.nextInt(1000000);
-        return (randNum + (int) price + bookIndex * 10)*10;
+        return (randNum + (int) price + bookIndex * 10) * 10;
     }
 
     public String generatePassword(String name, String dob) {
-        return name.substring(0,2) + dob.replaceAll("\\s", "");
+        return name.substring(0, 2) + dob.replaceAll("\\s", "");
     }
 
     public boolean isValidVendorId(String id, SessionFactory sessionFactory) {
@@ -480,52 +541,56 @@ public class LibraryUtility {
         Transaction tx = session.beginTransaction();
         Query query = session.createQuery("from Vendor where id = :id");
         query.setParameter("id", id);
-        Vendor vendor=null;
+        Vendor vendor = null;
         try {
             vendor = (Vendor) query.getSingleResult();
-        }catch (Exception e){
+        } catch (Exception e) {
 
-        }finally {
+        } finally {
             session.close();
         }
 
-        if(vendor!=null) return true;
+        if (vendor != null) return true;
         return false;
     }
 
-    public boolean isValidCustomerId(String customerId, SessionFactory sessionFactory){
+    public boolean isValidCustomerId(String customerId, SessionFactory sessionFactory) {
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
-        Customer customer=null;
+        Customer customer = null;
         try {
             Query query = session.createQuery("from Customer where id = :id");
             query.setParameter("id", customerId);
             customer = (Customer) query.getSingleResult();
             tx.commit();
-        }catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("Some error occurred. ");
-        }finally {
+        } finally {
             session.close();
         }
-        if(customer!=null) return true;
+        if (customer != null) return true;
         return false;
     }
 
-    public boolean isValidCustomerPassword(String customerId, String password, SessionFactory sessionFactory){
+    public boolean isValidCustomerPassword(String customerId, String password, SessionFactory sessionFactory) {
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
-        Customer customer=null;
+        Customer customer = null;
         try {
             Query query = session.createQuery("from Customer where id = :id");
             query.setParameter("id", customerId);
             customer = (Customer) query.getSingleResult();
             tx.commit();
-        }catch (Exception e) {
-            System.out.println("Some error occurred. ");
-        }finally {
+        } catch (Exception e) {
+            System.out.println("Some error occurred. isValidCustomerPassword");
+        } finally {
             session.close();
         }
-        if(customer.getPassword().equals(password)) return true;
+
+
+        if (customer!=null && customer.getId().equals(customerId) && customer.getPassword().equals(password)) {
+            return true;
+        }
         return false;
     }
 }
